@@ -15,6 +15,7 @@ public class HadamardGate implements IGate {
 		matrix.getT()[1] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[2] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[3] = new Complex(-Math.sqrt(1.0 / 2));
+		
 		for (int i = 0; i < 4; i++) {
 			System.out.println(matrix.getT()[i]);
 		}

@@ -43,7 +43,7 @@ public class GateFactory {
 			nrToffoli++;
 			break;
 		case E_XPauliGate:
-			gate = new XGate();
+			gate = new SigmaXGate();
 			break;
 		/*
 		 * case E_IGate: gate = new IdentityGate(); nrIGate++; break;

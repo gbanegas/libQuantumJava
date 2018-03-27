@@ -13,13 +13,17 @@ public class QReg {
 	private int hashw; /* width of the hash array */
 	private List<Complex> amplitude;
 	private List<BigInteger> state;
-	private BigInteger hash;
+	private List<BigInteger> hash;
 
 	public QReg(BigInteger initval, int width) {
 		this.width = width;
 		this.size = 1;
 		this.hashw = width + 2;
-		this.hash = BigInteger.ONE.shiftLeft(hashw);
+		BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
+		hash = new ArrayList<>();
+		for (BigInteger i = BigInteger.ZERO; !i.equals(tmp); i = i.add(BigInteger.ONE)) {
+			hash.add(i);
+		}
 
 		this.amplitude = new ArrayList<>();
 		this.state = new ArrayList<>();
@@ -69,9 +73,10 @@ public class QReg {
 	}
 
 	public BigInteger measureQBitPosition(int position) {
-		//TODO: implement
+		// TODO: implement
 		return null;
 	}
+
 	public BigInteger measure() {
 		double r;
 		int i;
@@ -182,7 +187,7 @@ public class QReg {
 	/**
 	 * @return the hash
 	 */
-	public BigInteger getHash() {
+	public List<BigInteger> getHash() {
 		return hash;
 	}
 
@@ -190,13 +195,34 @@ public class QReg {
 	 * @param hash
 	 *            the hash to set
 	 */
-	public void setHash(BigInteger hash) {
+	public void setHash(List<BigInteger> hash) {
 		this.hash = hash;
 	}
 
-	public void setStateAtPosition(int i, BigInteger tmp_2) {
-		this.state.set(i, tmp_2);
+	public void setStateAtPosition(int index, BigInteger tmp) {
+		if (index > this.state.size()) {
+			this.state.add(index, tmp);
+		} else {
+			this.state.set(index, tmp);
+		}
 
+	}
+	
+	public void setAmplituteAtPosition(int index, Complex tmp) {
+		if (index > this.amplitude.size()) {
+			this.amplitude.add(index, tmp);
+		} else {
+			this.amplitude.set(index, tmp);
+		}
+	}
+
+	public void setHashValueAtPosition(int index, BigInteger tmp) {
+		if (index > this.amplitude.size()) {
+			this.hash.add(index, tmp);
+		} else {
+			this.hash.set(index, tmp);
+		}
+		
 	}
 
 }

@@ -1,13 +1,13 @@
 package exceptions;
 
-public class OperationNotPermitted extends Exception {
+public class InexpectedError extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public OperationNotPermitted(String msg) {
+	
+	public InexpectedError(String msg) {
 		super(msg);
 	}
 
