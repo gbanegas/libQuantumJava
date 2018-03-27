@@ -200,16 +200,16 @@ public class QReg {
 	}
 
 	public void setStateAtPosition(int index, BigInteger tmp) {
-		if (index > this.state.size()) {
+		if (index >= this.state.size()) {
 			this.state.add(index, tmp);
 		} else {
 			this.state.set(index, tmp);
 		}
 
 	}
-	
+
 	public void setAmplituteAtPosition(int index, Complex tmp) {
-		if (index > this.amplitude.size()) {
+		if (index >= this.amplitude.size()) {
 			this.amplitude.add(index, tmp);
 		} else {
 			this.amplitude.set(index, tmp);
@@ -217,12 +217,24 @@ public class QReg {
 	}
 
 	public void setHashValueAtPosition(int index, BigInteger tmp) {
-		if (index > this.amplitude.size()) {
+		if (index >= this.amplitude.size()) {
 			this.hash.add(index, tmp);
 		} else {
 			this.hash.set(index, tmp);
 		}
-		
+
+	}
+
+	public Boolean trunkState() {
+		this.state = this.state.subList(0, size - 1);
+
+		return true;
+
+	}
+
+	public Boolean trunkAmplitute() {
+		this.amplitude = this.amplitude.subList(0, size - 1);
+		return true;
 	}
 
 }

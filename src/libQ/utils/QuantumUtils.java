@@ -57,6 +57,11 @@ public class QuantumUtils {
 
 	}
 
+	public static void quantumDecohere(QReg reg) {
+		// TODO:why we need this?
+
+	}
+
 	private static int quantum_hash64(BigInteger key, int width) {
 		BigInteger k32;
 		BigInteger tmp_1 = key.and(new BigInteger("4294967295"));

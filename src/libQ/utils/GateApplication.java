@@ -1,6 +1,7 @@
 package libQ.utils;
 
 import java.math.BigInteger;
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +18,15 @@ public class GateApplication {
 	 * @param target
 	 * @param m
 	 * @param reg
+	 * @throws UnexpectedException
 	 */
-	public static void applyQMatrix(int target, QMatrix m, QReg reg) {
-		int i;
+	public static void applyQMatrix(int target, QMatrix m, QReg reg) throws UnexpectedException {
+		int i, decsize = 0;
 		int addsize = 0;
 		double limit = 0;
+		BigInteger iset, j;
+		Complex t, tnot;
+		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
 
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);
@@ -39,12 +44,9 @@ public class GateApplication {
 			}
 		}
 
-		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
 		int k = reg.getSize();
 		limit = (1.0 / (tmp_limit.doubleValue())) * EPSILON;
 
-		BigInteger iset;
-		Complex t, tnot;
 		List<Boolean> done = new ArrayList<>();
 		for (i = 0; i < reg.getSize(); i++) {
 			done.add(Boolean.FALSE);
@@ -59,7 +61,7 @@ public class GateApplication {
 				tnot = Complex.ZERO;
 
 				BigInteger tmp_2 = reg.getState().get(i).xor(tmp_1);
-				BigInteger j = QuantumUtils.getQState(tmp_2, reg);
+				j = QuantumUtils.getQState(tmp_2, reg);
 				// j = quantum_get_state(reg->state[i] ^ ((MAX_UNSIGNED) 1<<target), *reg);
 				if (j.compareTo(BigInteger.ZERO) >= 0)
 					tnot = reg.getAmplitude().get(j.intValue());
@@ -126,48 +128,52 @@ public class GateApplication {
 
 		}
 		reg.setSize(reg.getSize() + addsize);
-		
-		//TODO
-		
+
 		/* remove basis states with extremely small amplitude */
 
-		  if(reg->hashw)
-		    {
-		      for(i=0, j=0; i<reg->size; i++)
-			{
-			  if(quantum_prob_inline(reg->amplitude[i]) < limit)
-			    {
-			      j++;
-			      decsize++;
-			    }
-			  
-			  else if(j)
-			    {
-			      reg->state[i-j] = reg->state[i];
-			      reg->amplitude[i-j] = reg->amplitude[i];
-			    }
-			}
-		    
-		      if(decsize)
-			{
-			  reg->size -= decsize;
-			  reg->amplitude = realloc(reg->amplitude, 
-						   reg->size * sizeof(COMPLEX_FLOAT));
-			  reg->state = realloc(reg->state, 
-					       reg->size * sizeof(MAX_UNSIGNED));
-			  
-			  
-			  if(reg->size && !(reg->state && reg->amplitude)) 
-			    quantum_error(QUANTUM_ENOMEM);
+		if (reg.getHashw() > 0) {
+			j = BigInteger.ZERO;
+			for (i = 0; i < reg.getSize(); i++) {
+				if (reg.quantum_prob_inline(reg.getAmplitude().get(i)) < limit) {
+					j = j.add(BigInteger.ONE);
+					decsize++;
+				}
 
-			  quantum_memman(-decsize * (sizeof(MAX_UNSIGNED) 
-						     + sizeof(COMPLEX_FLOAT)));
+				else if (j.intValue() > 0) {
+					int result = i - j.intValue();
+					reg.setStateAtPosition(result, reg.getState().get(i));
+					reg.setAmplituteAtPosition(result, reg.getAmplitude().get(i));
+					// reg->state[i-j] = reg->state[i];
+					// reg->amplitude[i-j] = reg->amplitude[i];
+				}
 			}
-		    }
 
-		  if(reg->size > (1 << (reg->hashw-1)))
-		    fprintf(stderr, "Warning: inefficient hash table (size %i vs hash %i)\n", 
-			    reg->size, 1<<reg->hashw);
+			if (decsize > 0) {
+				reg.setSize(reg.getSize() - decsize);
+				Boolean isOkTrunkState = reg.trunkState();
+				Boolean isOkTrunkAmplitute = reg.trunkAmplitute();
+				if (!(isOkTrunkState && isOkTrunkAmplitute)) {
+					throw new UnexpectedException("Error trunking state or amplitute");
+				}
+				/*
+				 * reg->amplitude = realloc(reg->amplitude, reg->size * sizeof(COMPLEX_FLOAT));
+				 * reg->state = realloc(reg->state, reg->size * sizeof(MAX_UNSIGNED));
+				 */
+
+				/*
+				 * if(reg->size && !(reg->state && reg->amplitude))
+				 * quantum_error(QUANTUM_ENOMEM);
+				 * 
+				 * quantum_memman(-decsize * (sizeof(MAX_UNSIGNED) + sizeof(COMPLEX_FLOAT)));
+				 */
+			}
+		}
+		/*
+		 * if(reg->size > (1 << (reg->hashw-1))) fprintf(stderr,
+		 * "Warning: inefficient hash table (size %i vs hash %i)\n", reg->size,
+		 * 1<<reg->hashw);
+		 */
+		QuantumUtils.quantumDecohere(reg);
 
 	}
 

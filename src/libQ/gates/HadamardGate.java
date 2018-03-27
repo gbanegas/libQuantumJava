@@ -1,24 +1,25 @@
 package libQ.gates;
 
+import java.rmi.UnexpectedException;
+
 import org.apache.commons.math3.complex.Complex;
 
 import exceptions.OperationNotPermitted;
 import libQ.register.QReg;
+import libQ.utils.GateApplication;
 import libQ.utils.QMatrix;
 
 public class HadamardGate implements IGate {
 
 	@Override
-	public Boolean apply(QReg reg, int targetQBit) {
+	public Boolean apply(QReg reg, int targetQBit) throws UnexpectedException {
 		QMatrix matrix = new QMatrix(2, 2);
 		matrix.getT()[0] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[1] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[2] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[3] = new Complex(-Math.sqrt(1.0 / 2));
+		GateApplication.applyQMatrix(targetQBit, matrix, reg);
 		
-		for (int i = 0; i < 4; i++) {
-			System.out.println(matrix.getT()[i]);
-		}
 		return true;
 	}
 
