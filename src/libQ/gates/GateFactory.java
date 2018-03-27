@@ -6,8 +6,23 @@ public class GateFactory {
 	private static int nrHadamardGate;
 	private static int nrCNotGate;
 	private static int nrToffoli;
+	
+	private static GateFactory instance = null;
+	
+	
+	protected GateFactory() {
+		
+	}
+	
+	public static GateFactory getInstance() {
+	      if(instance == null) {
+	         instance = new GateFactory();
+	      }
+	      return instance;
+	   }
+	
 
-	public static IGate getGate(EGateTypes id) {
+	public  IGate getGate(EGateTypes id) {
 		IGate gate = null;
 		switch (id) {
 		case E_HadamardGate:
