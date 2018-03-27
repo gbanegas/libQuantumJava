@@ -134,7 +134,7 @@ public class GateApplication {
 		if (reg.getHashw() > 0) {
 			j = BigInteger.ZERO;
 			for (i = 0; i < reg.getSize(); i++) {
-				if (reg.quantum_prob_inline(reg.getAmplitude().get(i)) < limit) {
+				if (QMeasurement.quantumProbabilityInline(reg.getAmplitude().get(i)) < limit) {
 					j = j.add(BigInteger.ONE);
 					decsize++;
 				}
@@ -155,24 +155,10 @@ public class GateApplication {
 				if (!(isOkTrunkState && isOkTrunkAmplitute)) {
 					throw new UnexpectedException("Error trunking state or amplitute");
 				}
-				/*
-				 * reg->amplitude = realloc(reg->amplitude, reg->size * sizeof(COMPLEX_FLOAT));
-				 * reg->state = realloc(reg->state, reg->size * sizeof(MAX_UNSIGNED));
-				 */
-
-				/*
-				 * if(reg->size && !(reg->state && reg->amplitude))
-				 * quantum_error(QUANTUM_ENOMEM);
-				 * 
-				 * quantum_memman(-decsize * (sizeof(MAX_UNSIGNED) + sizeof(COMPLEX_FLOAT)));
-				 */
+				
 			}
 		}
-		/*
-		 * if(reg->size > (1 << (reg->hashw-1))) fprintf(stderr,
-		 * "Warning: inefficient hash table (size %i vs hash %i)\n", reg->size,
-		 * 1<<reg->hashw);
-		 */
+		
 		QuantumUtils.quantumDecohere(reg);
 
 	}

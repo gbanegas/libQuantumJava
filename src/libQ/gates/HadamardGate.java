@@ -4,7 +4,7 @@ import java.rmi.UnexpectedException;
 
 import org.apache.commons.math3.complex.Complex;
 
-import exceptions.OperationNotPermitted;
+import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 import libQ.utils.GateApplication;
 import libQ.utils.QMatrix;
@@ -24,14 +24,14 @@ public class HadamardGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("Hadamatrixard just need one bit");
+	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("Hadamatrixard just need one bit");
 
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("Hadamatrixard just need one control bit");
+	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("Hadamatrixard just need one control bit");
 	}
 
 }

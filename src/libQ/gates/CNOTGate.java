@@ -2,7 +2,7 @@ package libQ.gates;
 
 import java.math.BigInteger;
 
-import exceptions.OperationNotPermitted;
+import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 public class CNOTGate implements IGate {
@@ -23,13 +23,13 @@ public class CNOTGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("CNOT just need one control bit");
+	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("CNOT just need one control bit");
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("CNOT need one control bit and a target bit");
+	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("CNOT need one control bit and a target bit");
 	}
 
 }

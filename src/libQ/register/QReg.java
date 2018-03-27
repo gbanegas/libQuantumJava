@@ -7,6 +7,8 @@ import java.util.Random;
 
 import org.apache.commons.math3.complex.Complex;
 
+import libQ.utils.QMeasurement;
+
 public class QReg {
 	private int width; /* number of qubits in the qureg */
 	private int size; /* number of non-zero vectors */
@@ -55,7 +57,8 @@ public class QReg {
 
 		for (i = 0; i < this.size; i++) {
 			System.out.print("(");
-			System.out.print(this.amplitude.get(i).getReal());
+			Double amplitude = this.amplitude.get(i).getReal();
+			System.out.print(Double.parseDouble(String.format("%.7f", amplitude)));
 			System.out.print(" |");
 			for (j = this.width - 1; j >= 0; j--) {
 				if (j % 4 == 3)
@@ -72,9 +75,38 @@ public class QReg {
 		System.out.println();
 	}
 
-	public BigInteger measureQBitPosition(int position) {
-		// TODO: implement
-		return null;
+	public BigInteger measureQBitAtPosition(int position) {
+		int i;
+		BigInteger result = BigInteger.ZERO;
+		double pa = 0, r;
+		BigInteger pos2;
+
+		pos2 = BigInteger.ONE.shiftLeft(position);
+
+		/* Sum up the probability for 0 being the result */
+
+		for (i = 0; i < this.size; i++) {
+			BigInteger tmp = this.state.get(i).and(pos2);
+			if ((tmp.compareTo(BigInteger.ZERO) != 0)) {
+				pa += QMeasurement.quantumProbabilityInline(amplitude.get(i));
+			}
+		}
+
+		/*
+		 * Compare the probability for 0 with a random number and determine the result
+		 * of the measurement
+		 */
+
+		r = quantum_frand();
+
+		if (r > pa)
+			result = BigInteger.ONE;
+
+		QMeasurement.quantum_state_collapse(position, result, this);
+
+		QMeasurement.quantum_delete_qureg_hashpreserve(this);
+
+		return result;
 	}
 
 	public BigInteger measure() {
@@ -92,17 +124,14 @@ public class QReg {
 			 * base state.
 			 */
 
-			r -= quantum_prob_inline(this.amplitude.get(i));
+			r -= QMeasurement.quantumProbabilityInline(this.amplitude.get(i));
 			if (0 >= r)
 				return this.state.get(i);
 		}
 		return BigInteger.ZERO;
 	}
 
-	public double quantum_prob_inline(Complex complex) {
-		double result = (complex.getReal() * complex.getReal()) + (complex.getImaginary() * complex.getImaginary());
-		return result;
-	}
+	
 
 	private double quantum_frand() {
 		Random r = new Random();
@@ -226,14 +255,14 @@ public class QReg {
 	}
 
 	public Boolean trunkState() {
-		this.state = this.state.subList(0, size - 1);
+		this.state = this.state.subList(0, size);
 
 		return true;
 
 	}
 
 	public Boolean trunkAmplitute() {
-		this.amplitude = this.amplitude.subList(0, size - 1);
+		this.amplitude = this.amplitude.subList(0, size);
 		return true;
 	}
 

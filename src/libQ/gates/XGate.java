@@ -1,6 +1,6 @@
 package libQ.gates;
 
-import exceptions.OperationNotPermitted;
+import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 public class XGate implements IGate {
@@ -18,7 +18,7 @@ public class XGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermitted {
+	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

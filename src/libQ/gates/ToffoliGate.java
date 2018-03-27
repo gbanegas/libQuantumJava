@@ -2,14 +2,14 @@ package libQ.gates;
 
 import java.math.BigInteger;
 
-import exceptions.OperationNotPermitted;
+import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 public class ToffoliGate implements IGate {
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("ToffoliGate needs two controls bits");
+	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("ToffoliGate needs two controls bits");
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class ToffoliGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermitted {
-		throw new OperationNotPermitted("ToffoliGate needs two controls bits");
+	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("ToffoliGate needs two controls bits");
 	}
 
 }
