@@ -3,7 +3,7 @@ package libQ.gates;
 import java.math.BigInteger;
 
 import exceptions.OperationNotPermitted;
-import libQ.QReg;
+import libQ.register.QReg;
 
 public class ToffoliGate implements IGate {
 

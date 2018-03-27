@@ -3,7 +3,7 @@ package libQ.gates;
 import org.apache.commons.math3.complex.Complex;
 
 import exceptions.OperationNotPermitted;
-import libQ.QReg;
+import libQ.register.QReg;
 import libQ.utils.QMatrix;
 
 public class HadamardGate implements IGate {

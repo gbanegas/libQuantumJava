@@ -1,7 +1,7 @@
 package libQ.gates;
 
 import exceptions.OperationNotPermitted;
-import libQ.QReg;
+import libQ.register.QReg;
 
 public class XGate implements IGate {
 
