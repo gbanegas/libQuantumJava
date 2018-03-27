@@ -99,7 +99,7 @@ public class QReg {
 		return BigInteger.ZERO;
 	}
 
-	private double quantum_prob_inline(Complex complex) {
+	public double quantum_prob_inline(Complex complex) {
 		double result = (complex.getReal() * complex.getReal()) + (complex.getImaginary() * complex.getImaginary());
 		return result;
 	}

@@ -1,12 +1,16 @@
 package libQ.utils;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
 import libQ.register.QReg;
 
 public class GateApplication {
+
+	private static double EPSILON = 1e-6;
 
 	/**
 	 * 
@@ -17,6 +21,7 @@ public class GateApplication {
 	public static void applyQMatrix(int target, QMatrix m, QReg reg) {
 		int i;
 		int addsize = 0;
+		double limit = 0;
 
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);
@@ -33,7 +38,136 @@ public class GateApplication {
 				reg.setAmplituteAtPosition(i + reg.getSize(), Complex.ZERO);
 			}
 		}
-		// TODO: MIssing part check to do it
+
+		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
+		int k = reg.getSize();
+		limit = (1.0 / (tmp_limit.doubleValue())) * EPSILON;
+
+		BigInteger iset;
+		Complex t, tnot;
+		List<Boolean> done = new ArrayList<>();
+		for (i = 0; i < reg.getSize(); i++) {
+			done.add(Boolean.FALSE);
+		}
+		for (i = 0; i < reg.getSize(); i++) {
+			if (!done.get(i)) {
+				/* determine if the target of the basis state is set */
+				BigInteger tmp_1 = BigInteger.ONE.shiftLeft(target);
+
+				iset = reg.getState().get(i).and(tmp_1);
+
+				tnot = Complex.ZERO;
+
+				BigInteger tmp_2 = reg.getState().get(i).xor(tmp_1);
+				BigInteger j = QuantumUtils.getQState(tmp_2, reg);
+				// j = quantum_get_state(reg->state[i] ^ ((MAX_UNSIGNED) 1<<target), *reg);
+				if (j.compareTo(BigInteger.ZERO) >= 0)
+					tnot = reg.getAmplitude().get(j.intValue());
+
+				t = reg.getAmplitude().get(i);
+
+				if (iset.compareTo(BigInteger.ZERO) != 0) {
+					Complex tmp_c1 = (m.getT()[2].multiply(tnot));
+					Complex tmp_c2 = (m.getT()[3].multiply(t));
+					Complex tmp_c3 = (tmp_c1.add(tmp_c2));
+					reg.setAmplituteAtPosition(i, tmp_c3);
+				} else {
+					Complex tmp_c1 = (m.getT()[0].multiply(t));
+					Complex tmp_c2 = (m.getT()[1].multiply(tnot));
+					Complex tmp_c3 = (tmp_c1.add(tmp_c2));
+					reg.setAmplituteAtPosition(i, tmp_c3);
+					// reg->amplitude[i] = m.t[0] * t + m.t[1] * tnot;
+				}
+
+				if (j.compareTo(BigInteger.ZERO) >= 0) {
+					if (iset.compareTo(BigInteger.ZERO) != 0) {
+						Complex tmp_c1 = (m.getT()[0].multiply(tnot));
+						Complex tmp_c2 = (m.getT()[1].multiply(t));
+						Complex tmp_c3 = (tmp_c1.add(tmp_c2));
+						reg.setAmplituteAtPosition(j.intValue(), tmp_c3);
+						// reg->amplitude[j] = m.t[0] * tnot + m.t[1] * t;
+					} else {
+						Complex tmp_c1 = (m.getT()[2].multiply(t));
+						Complex tmp_c2 = (m.getT()[3].multiply(tnot));
+						Complex tmp_c3 = (tmp_c1.add(tmp_c2));
+						reg.setAmplituteAtPosition(j.intValue(), tmp_c3);
+						// reg->amplitude[j] = m.t[2] * t + m.t[3] * tnot;
+					}
+				} else /* new basis state will be created */
+				{
+
+					if ((Complex.equals(m.getT()[1], Complex.ZERO)) && (iset.compareTo(BigInteger.ZERO) != 0))
+						break;
+					if (((Complex.equals(m.getT()[2], Complex.ZERO))) && (iset.compareTo(BigInteger.ZERO) == 0))
+						break;
+
+					BigInteger tmp_t = BigInteger.ONE.shiftLeft(target);
+					BigInteger tmp_tx = reg.getState().get(i).xor(tmp_t);
+
+					// reg->state[k] = reg->state[i] ^ ((MAX_UNSIGNED) 1 << target);
+					reg.setStateAtPosition(k, tmp_tx);
+
+					if (iset.compareTo(BigInteger.ZERO) != 0) {
+						Complex tmp_c1 = (m.getT()[1].multiply(t));
+						reg.setAmplituteAtPosition(k, tmp_c1);
+						// reg->amplitude[k] = m.t[1] * t;
+					} else {
+						Complex tmp_c1 = (m.getT()[2].multiply(t));
+						reg.setAmplituteAtPosition(k, tmp_c1);
+						// reg->amplitude[k] = m.t[2] * t;
+					}
+
+					k++;
+				}
+
+				if (j.intValue() >= 0)
+					done.set(j.intValue(), Boolean.TRUE);
+			}
+
+		}
+		reg.setSize(reg.getSize() + addsize);
+		
+		//TODO
+		
+		/* remove basis states with extremely small amplitude */
+
+		  if(reg->hashw)
+		    {
+		      for(i=0, j=0; i<reg->size; i++)
+			{
+			  if(quantum_prob_inline(reg->amplitude[i]) < limit)
+			    {
+			      j++;
+			      decsize++;
+			    }
+			  
+			  else if(j)
+			    {
+			      reg->state[i-j] = reg->state[i];
+			      reg->amplitude[i-j] = reg->amplitude[i];
+			    }
+			}
+		    
+		      if(decsize)
+			{
+			  reg->size -= decsize;
+			  reg->amplitude = realloc(reg->amplitude, 
+						   reg->size * sizeof(COMPLEX_FLOAT));
+			  reg->state = realloc(reg->state, 
+					       reg->size * sizeof(MAX_UNSIGNED));
+			  
+			  
+			  if(reg->size && !(reg->state && reg->amplitude)) 
+			    quantum_error(QUANTUM_ENOMEM);
+
+			  quantum_memman(-decsize * (sizeof(MAX_UNSIGNED) 
+						     + sizeof(COMPLEX_FLOAT)));
+			}
+		    }
+
+		  if(reg->size > (1 << (reg->hashw-1)))
+		    fprintf(stderr, "Warning: inefficient hash table (size %i vs hash %i)\n", 
+			    reg->size, 1<<reg->hashw);
 
 	}
 
