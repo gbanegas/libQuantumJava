@@ -62,16 +62,31 @@ public class QuantumUtils {
 
 	}
 
+	/*
+	 * unsigned int k32;
+	 * 
+	 * k32 = (key & 0xFFFFFFFF) ^ (key >> 32);
+	 * 
+	 * k32 *= 0x9e370001UL; k32 = k32 >> (32-width);
+	 */
+
 	private static int quantum_hash64(BigInteger key, int width) {
-		BigInteger k32;
-		BigInteger tmp_1 = key.and(new BigInteger("4294967295"));
-		BigInteger tmp_2 = new BigInteger("32").shiftLeft(tmp_1.intValue());
-		k32 = (tmp_1.xor(tmp_2));
+		int tmp = key.intValue();
+		long k32;
+		k32 = (tmp & 0xFFFFFFFF) ^ (tmp >> 32);
+		k32 *= 0x9e370001L;
+		k32 = k32 >> (32 - width);
+		/*
+		 * BigInteger tmp_1 = key.and(new BigInteger("4294967295")); BigInteger tmp_2 =
+		 * new BigInteger("32").shiftLeft(tmp_1.intValue()); k32 = (tmp_1.xor(tmp_2));
+		 * System.out.println(k32);
+		 * 
+		 * k32 = k32.multiply(new BigInteger("2654404609"));
+		 */
 
-		k32 = k32.multiply(new BigInteger("2654404609"));
-		int result = k32.intValue() >> (32 - width);
+		//Integer result = k32.intValue() >> (32 - width);
 
-		return result;
+		return (int)k32;
 	}
 
 }
