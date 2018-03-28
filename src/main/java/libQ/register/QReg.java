@@ -6,6 +6,12 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
+
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class QReg {
 	private int width; /* number of qubits in the qureg */
 	private int size; /* number of non-zero vectors */

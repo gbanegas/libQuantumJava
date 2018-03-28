@@ -10,6 +10,12 @@ import org.apache.commons.math3.complex.Complex;
 import libQ.register.QMeasurement;
 import libQ.register.QReg;
 
+
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class GateApplication {
 
 	private static double EPSILON = 1e-6;

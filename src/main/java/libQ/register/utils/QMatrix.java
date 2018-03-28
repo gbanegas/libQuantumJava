@@ -2,6 +2,11 @@ package libQ.register.utils;
 
 import org.apache.commons.math3.complex.Complex;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class QMatrix {
 
 	private int rows;

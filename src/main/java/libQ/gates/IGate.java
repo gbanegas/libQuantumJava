@@ -5,6 +5,11 @@ import java.rmi.UnexpectedException;
 import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public interface IGate {
 	
 	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException, UnexpectedException;

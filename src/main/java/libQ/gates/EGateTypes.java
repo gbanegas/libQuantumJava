@@ -1,5 +1,10 @@
 package libQ.gates;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public enum EGateTypes {
 	/**
 	 * Hadamard Gate

@@ -8,7 +8,11 @@ import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 import libQ.register.utils.GateApplication;
 import libQ.register.utils.QMatrix;
-
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class HadamardGate implements IGate {
 
 	@Override

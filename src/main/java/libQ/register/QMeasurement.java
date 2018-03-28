@@ -7,15 +7,20 @@ import java.util.Random;
 
 import org.apache.commons.math3.complex.Complex;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class QMeasurement {
-	
+
 	public static BigInteger measure(QReg reg) {
 		double r;
 		int i;
 
 		/* Get a random number between 0 and 1 */
 
-		r = quantum_frand();
+		r = quantumRandom();
 
 		for (i = 0; i < reg.getSize(); i++) {
 			/*
@@ -31,12 +36,12 @@ public class QMeasurement {
 		return BigInteger.ZERO;
 	}
 
-	public static void quantum_delete_qureg_hashpreserve(QReg reg) {
+	public static void deleteRegAndPreserveHash(QReg reg) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void quantum_state_collapse(int position, BigInteger value, QReg reg) {
+	public static void measureStateAndCollapse(int position, BigInteger value, QReg reg) {
 		int i, j, k;
 		int size = 0;
 		double d = 0;
@@ -73,29 +78,29 @@ public class QMeasurement {
 					BigInteger tmp_1 = BigInteger.ONE.shiftLeft(k);
 					rpat = rpat.add(tmp_1);
 				}
-				
+
 				rpat = rpat.and(reg.getState().get(i));
 
 				for (k = 63, lpat = BigInteger.ZERO; k > position; k--) {
 					BigInteger tmp_lpat = BigInteger.ONE.shiftLeft(k);
 					lpat = lpat.add(tmp_lpat);
 				}
-				
+
 				lpat = lpat.and(reg.getState().get(i));
-				
+
 				BigInteger lapt_shift = BigInteger.ONE.shiftRight(lpat.intValue());
 				nState.add(j, lapt_shift.or(rpat));
 				Complex n = (reg.getAmplitude().get(i).multiply(Complex.ONE)).subtract(new Complex(Math.sqrt(d)));
 				nAmplitude.add(j, n);
 
-				//out.state[j] = (lpat >> 1) | rpat;
-				//out.amplitude[j] = reg.amplitude[i] * 1 / (float) sqrt(d);
+				// out.state[j] = (lpat >> 1) | rpat;
+				// out.amplitude[j] = reg.amplitude[i] * 1 / (float) sqrt(d);
 
 				j++;
 			}
 		}
 		reg.setSize(size);
-		reg.setWidth(reg.getWidth()-1);
+		reg.setWidth(reg.getWidth() - 1);
 		reg.setState(nState);
 		reg.setAmplitude(nAmplitude);
 
@@ -106,7 +111,7 @@ public class QMeasurement {
 		return result;
 	}
 
-	private static double quantum_frand() {
+	private static double quantumRandom() {
 		Random r = new Random();
 		return r.nextDouble();
 	}
@@ -133,14 +138,14 @@ public class QMeasurement {
 		 * of the measurement
 		 */
 
-		r = quantum_frand();
+		r = quantumRandom();
 
 		if (r > pa)
 			result = BigInteger.ONE;
 
-		QMeasurement.quantum_state_collapse(position, result, qReg);
+		QMeasurement.measureStateAndCollapse(position, result, qReg);
 
-		QMeasurement.quantum_delete_qureg_hashpreserve(qReg);
+		QMeasurement.deleteRegAndPreserveHash(qReg);
 
 		return result;
 	}

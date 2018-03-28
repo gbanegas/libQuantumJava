@@ -4,6 +4,11 @@ import java.math.BigInteger;
 
 import libQ.register.QReg;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class QuantumUtils {
 
 	/**
@@ -20,7 +25,7 @@ public class QuantumUtils {
 		if (reg.getHashw() == 0)
 			return a;
 
-		i = quantum_hash64(a, reg.getHashw());// Correct with libquantum
+		i = quantumHash64(a, reg.getHashw());// Correct with libquantum
 
 		while (reg.getHash().get(i).compareTo(BigInteger.ZERO) != 0) {
 
@@ -41,7 +46,7 @@ public class QuantumUtils {
 	public static void addHash(QReg reg, int index) {
 		int i, mark = 0;
 
-		i = quantum_hash64(reg.getState().get(index), reg.getHashw());
+		i = quantumHash64(reg.getState().get(index), reg.getHashw());
 
 		while (reg.getHash().get(i).compareTo(BigInteger.ZERO) != 0) {
 			i++;
@@ -63,7 +68,7 @@ public class QuantumUtils {
 
 	}
 
-	private static int quantum_hash64(BigInteger key, int width) {
+	private static int quantumHash64(BigInteger key, int width) {
 		int tmp = key.intValue();
 		long k32;
 		k32 = (tmp & 0xFFFFFFFF) ^ (tmp >> 32);

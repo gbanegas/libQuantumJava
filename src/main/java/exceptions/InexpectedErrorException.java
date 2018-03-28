@@ -1,5 +1,10 @@
 package exceptions;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class InexpectedErrorException extends Exception {
 
 	/**

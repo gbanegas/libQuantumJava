@@ -3,6 +3,11 @@ package libQ.gates;
 import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class SigmaXGate implements IGate {
 
 	@Override

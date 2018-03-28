@@ -1,6 +1,10 @@
 package libQ.gates;
 
-
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class GateFactory {
 	
 	private static int nrHadamardGate;

@@ -5,6 +5,11 @@ import java.math.BigInteger;
 import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
+/**
+ * 
+ * @author Gustavo Banegas
+ *
+ */
 public class ToffoliGate implements IGate {
 
 	@Override
