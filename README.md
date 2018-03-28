@@ -15,3 +15,8 @@ cd libQuantumJava
 gradle build
 
 ```
+
+# TODO
+Add wiki
+add grover
+add shor
