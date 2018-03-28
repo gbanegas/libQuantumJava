@@ -9,12 +9,17 @@
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'java-library'
 
+plugins {
+    id 'java-library'
+}
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+version = '0.1.0'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -25,5 +30,12 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
 }
 
