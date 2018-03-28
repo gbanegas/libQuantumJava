@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-
 /**
  * 
  * @author Gustavo Banegas
@@ -25,10 +24,11 @@ public class QReg {
 		this.size = 1;
 		this.hashw = width + 2;
 		BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
-		hash = new ArrayList<>();
-		for (BigInteger i = BigInteger.ZERO; !i.equals(tmp); i = i.add(BigInteger.ONE)) {
-			hash.add(i);
-		}
+		hash = new ArrayList<>(tmp.intValue());
+		/*
+		 * for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i =
+		 * i.add(BigInteger.ONE)) { hash.add(i); }
+		 */
 
 		this.amplitude = new ArrayList<>();
 		this.state = new ArrayList<>();
@@ -62,12 +62,12 @@ public class QReg {
 		StringBuilder builder = new StringBuilder();
 		for (i = 0; i < this.size; i++) {
 			builder.append("(");
-			// System.out.print("(");
+			//System.out.print("(");
 			Double amplitude = this.amplitude.get(i).getReal();
 			builder.append(Double.parseDouble(String.format("%.7f", amplitude)));
-			// System.out.print();
-			builder.append(" |");
-			// System.out.print(" |");
+			//System.out.print(String.format("%.7f", amplitude));
+			 builder.append(" |");
+			//System.out.print(" |");
 			for (j = this.width - 1; j >= 0; j--) {
 				if (j % 4 == 3)
 					builder.append(" ");
@@ -75,11 +75,11 @@ public class QReg {
 						.compareTo(BigInteger.ZERO) > 0);
 				Integer result = (myBoolean) ? 1 : 0;
 				builder.append(result);
-				// System.out.print(result);
+				//System.out.print(result);
 			}
 			builder.append(">)");
 			builder.append("\n");
-			// System.out.println(">)");
+			//System.out.println(">)");
 		}
 
 		return builder.toString();
@@ -127,6 +127,9 @@ public class QReg {
 	 * @return the hashw
 	 */
 	public int getHashw() {
+		if(this.hash.size() == 0) {
+			this.getHash();
+		}
 		return hashw;
 	}
 
@@ -172,6 +175,13 @@ public class QReg {
 	 * @return the hash
 	 */
 	public List<BigInteger> getHash() {
+		if (hash.size() == 0) {
+			BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
+			for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i = i.add(BigInteger.ONE)) {
+				hash.add(i);
+			}
+		}
+
 		return hash;
 	}
 

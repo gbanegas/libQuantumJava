@@ -30,6 +30,7 @@ public class GateApplication {
 	 * @throws UnexpectedException
 	 */
 	public static void applyQMatrix(int target, QMatrix m, QReg reg) throws UnexpectedException {
+		reg.getHash();
 		int i, decsize = 0;
 		int addsize = 0;
 		double limit = 0;
