@@ -1,6 +1,6 @@
 package libQ.gates;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 /**
  * 

@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.gates.EGateTypes;
 import libQ.gates.GateFactory;
 import libQ.gates.IGate;

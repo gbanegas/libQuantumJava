@@ -1,4 +1,4 @@
-package exceptions;
+package libQ.exceptions;
 
 /**
  * 

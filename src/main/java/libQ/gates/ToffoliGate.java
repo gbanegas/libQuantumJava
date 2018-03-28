@@ -2,7 +2,7 @@ package libQ.gates;
 
 import java.math.BigInteger;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 /**

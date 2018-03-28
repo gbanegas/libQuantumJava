@@ -2,7 +2,7 @@ package libQ.gates;
 
 import java.rmi.UnexpectedException;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 /**

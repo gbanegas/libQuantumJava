@@ -3,7 +3,7 @@ package libQ;
 import java.math.BigInteger;
 import java.rmi.UnexpectedException;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.gates.EGateTypes;
 import libQ.gates.GateFactory;
 import libQ.gates.IGate;

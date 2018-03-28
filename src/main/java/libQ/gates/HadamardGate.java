@@ -4,7 +4,7 @@ import java.rmi.UnexpectedException;
 
 import org.apache.commons.math3.complex.Complex;
 
-import exceptions.OperationNotPermittedException;
+import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 import libQ.register.utils.GateApplication;
 import libQ.register.utils.QMatrix;
