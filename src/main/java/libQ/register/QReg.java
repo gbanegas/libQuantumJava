@@ -3,7 +3,6 @@ package libQ.register;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.math3.complex.Complex;
 
@@ -52,90 +51,42 @@ public class QReg {
 	 * 
 	 * }
 	 */
-	public void quantum_print_qureg() {
-		int i, j;
 
+	@Override
+	public String toString() {
+		int i, j;
+		StringBuilder builder = new StringBuilder();
 		for (i = 0; i < this.size; i++) {
-			System.out.print("(");
+			builder.append("(");
+			// System.out.print("(");
 			Double amplitude = this.amplitude.get(i).getReal();
-			System.out.print(Double.parseDouble(String.format("%.7f", amplitude)));
-			System.out.print(" |");
+			builder.append(Double.parseDouble(String.format("%.7f", amplitude)));
+			// System.out.print();
+			builder.append(" |");
+			// System.out.print(" |");
 			for (j = this.width - 1; j >= 0; j--) {
 				if (j % 4 == 3)
-					System.out.print(" ");
+					builder.append(" ");
 				Boolean myBoolean = (((BigInteger.ONE.shiftLeft(j)).and(this.state.get(i)))
 						.compareTo(BigInteger.ZERO) > 0);
 				Integer result = (myBoolean) ? 1 : 0;
-				System.out.print(result);
+				builder.append(result);
+				// System.out.print(result);
 			}
-
-			System.out.println(">)");
+			builder.append(">)");
+			builder.append("\n");
+			// System.out.println(">)");
 		}
 
-		System.out.println();
+		return builder.toString();
 	}
 
 	public BigInteger measureQBitAtPosition(int position) {
-		int i;
-		BigInteger result = BigInteger.ZERO;
-		double pa = 0, r;
-		BigInteger pos2;
-
-		pos2 = BigInteger.ONE.shiftLeft(position);
-
-		/* Sum up the probability for 0 being the result */
-
-		for (i = 0; i < this.size; i++) {
-			BigInteger tmp = this.state.get(i).and(pos2);
-			if ((tmp.compareTo(BigInteger.ZERO) == 0)) {
-				pa += QMeasurement.quantumProbabilityInline(amplitude.get(i));
-			}
-		}
-
-		/*
-		 * Compare the probability for 0 with a random number and determine the result
-		 * of the measurement
-		 */
-
-		r = quantum_frand();
-
-		if (r > pa)
-			result = BigInteger.ONE;
-
-		QMeasurement.quantum_state_collapse(position, result, this);
-
-		QMeasurement.quantum_delete_qureg_hashpreserve(this);
-
-		return result;
+		return QMeasurement.measureQBit(this, position);
 	}
 
 	public BigInteger measure() {
-		double r;
-		int i;
-
-		/* Get a random number between 0 and 1 */
-
-		r = quantum_frand();
-
-		for (i = 0; i < this.size; i++) {
-			/*
-			 * If the random number is less than the probability of the given base state -
-			 * r, return the base state as the result. Otherwise, continue with the next
-			 * base state.
-			 */
-
-			r -= QMeasurement.quantumProbabilityInline(this.amplitude.get(i));
-			if (0 >= r)
-				return this.state.get(i);
-		}
-		return BigInteger.ZERO;
-	}
-
-	
-
-	private double quantum_frand() {
-		Random r = new Random();
-		return r.nextDouble();
+		return QMeasurement.measure(this);
 	}
 
 	/**

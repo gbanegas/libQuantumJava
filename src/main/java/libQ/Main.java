@@ -14,17 +14,17 @@ public class Main {
 	public static void main(String[] args) throws OperationNotPermittedException, UnexpectedException {
 		QReg reg = new QReg(new BigInteger("1"), 4);
 
-		reg.quantum_print_qureg();
+		System.out.println(reg);;
 		IGate h = GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
 		h.apply(reg, 1);
-		reg.quantum_print_qureg();
+		System.out.println(reg);
+		reg.measure();
 		//h.apply(reg, 3);
 	/*	h.apply(reg, 2);
 		reg.quantum_print_qureg();
 		h.apply(reg, 2);
 		reg.quantum_print_qureg();*/
-		System.out.println(reg.measureQBitAtPosition(1));
-		reg.quantum_print_qureg();
+		System.out.println(reg);
 		/*
 		 * h.apply(reg, 3, 2, 0); reg.quantum_print_qureg();
 		 * System.out.println(GateFactory.getInstance().getNrCNotGate());

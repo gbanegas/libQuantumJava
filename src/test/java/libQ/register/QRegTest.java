@@ -1,6 +1,9 @@
 package libQ.register;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.math.BigInteger;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,9 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class QRegTest {
+	
+	QReg reg;
+	QReg reg2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 	}
 
 	@AfterClass
@@ -20,6 +27,9 @@ public class QRegTest {
 
 	@Before
 	public void setUp() throws Exception {
+		reg = new QReg(new BigInteger("3"), 4);
+		reg2 = new QReg(new BigInteger("3"), 4);
+		
 	}
 
 	@After
@@ -28,22 +38,38 @@ public class QRegTest {
 
 	@Test
 	public void testQReg() {
-		fail("Not yet implemented");
+		QReg tempReg = new QReg(BigInteger.ZERO, 4);
+		assertEquals(4, tempReg.getWidth());
+		assertEquals(1, tempReg.getSize());
+		assertEquals(1, tempReg.getAmplitude().size());
+		assertEquals(1, tempReg.getState().size());
 	}
 
 	@Test
-	public void testQuantum_print_qureg() {
-		fail("Not yet implemented");
+	public void testToString() {
+		String toVerify = "(1.0 | 0011>)";
+		String gotFromClass = reg.toString();
+		assertEquals(1, gotFromClass.compareTo(toVerify));
 	}
 
 	@Test
 	public void testMeasureQBitAtPosition() {
-		fail("Not yet implemented");
+		BigInteger measuredBitOne = reg.measureQBitAtPosition(0);
+		BigInteger measuredBitZero = reg2.measureQBitAtPosition(4);
+		//System.out.println(reg);
+		
+		assertEquals(BigInteger.ONE, measuredBitOne);
+		assertEquals(BigInteger.ZERO, measuredBitZero);
+		assertEquals(3, reg.getWidth());
+		assertEquals(3, reg2.getWidth());
 	}
 
 	@Test
 	public void testMeasure() {
-		fail("Not yet implemented");
+		//System.out.println(reg);
+		BigInteger measured = reg.measure();
+		assertEquals(new BigInteger("3"), measured);
+		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -118,16 +144,6 @@ public class QRegTest {
 
 	@Test
 	public void testSetHashValueAtPosition() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTrunkState() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTrunkAmplitute() {
 		fail("Not yet implemented");
 	}
 
