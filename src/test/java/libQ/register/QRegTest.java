@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.math.BigInteger;
+import java.rmi.UnexpectedException;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,14 +12,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import exceptions.OperationNotPermittedException;
+import libQ.gates.EGateTypes;
+import libQ.gates.GateFactory;
+import libQ.gates.IGate;
+
 public class QRegTest {
-	
+
 	QReg reg;
 	QReg reg2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+
 	}
 
 	@AfterClass
@@ -29,7 +35,7 @@ public class QRegTest {
 	public void setUp() throws Exception {
 		reg = new QReg(new BigInteger("3"), 4);
 		reg2 = new QReg(new BigInteger("3"), 4);
-		
+
 	}
 
 	@After
@@ -56,8 +62,8 @@ public class QRegTest {
 	public void testMeasureQBitAtPosition() {
 		BigInteger measuredBitOne = reg.measureQBitAtPosition(0);
 		BigInteger measuredBitZero = reg2.measureQBitAtPosition(4);
-		//System.out.println(reg);
-		
+		// System.out.println(reg);
+
 		assertEquals(BigInteger.ONE, measuredBitOne);
 		assertEquals(BigInteger.ZERO, measuredBitZero);
 		assertEquals(3, reg.getWidth());
@@ -66,10 +72,10 @@ public class QRegTest {
 
 	@Test
 	public void testMeasure() {
-		//System.out.println(reg);
+		// System.out.println(reg);
 		BigInteger measured = reg.measure();
 		assertEquals(new BigInteger("3"), measured);
-		//fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
@@ -78,15 +84,19 @@ public class QRegTest {
 		assertEquals(4, reg2.getWidth());
 	}
 
-	
 	@Test
-	public void testGetSize() {
-		fail("Not yet implemented");
+	public void testGetSize() throws UnexpectedException, OperationNotPermittedException {
+		assertEquals(1, reg.getSize());
+		IGate hadamardGate = GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		hadamardGate.apply(reg, 0);
+		assertEquals(2, reg.getSize());
 	}
 
 	@Test
 	public void testSetSize() {
-		fail("Not yet implemented");
+		assertEquals(1, reg.getSize());
+		reg.setSize(reg.getSize() + 1);
+		assertEquals(2, reg.getSize());
 	}
 
 	@Test
