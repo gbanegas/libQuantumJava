@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import libQ.utils.QMeasurement;
-
 public class QReg {
 	private int width; /* number of qubits in the qureg */
 	private int size; /* number of non-zero vectors */
@@ -100,7 +98,7 @@ public class QReg {
 	 * @param width
 	 *            the width to set
 	 */
-	public void setWidth(int width) {
+	protected void setWidth(int width) {
 		this.width = width;
 	}
 

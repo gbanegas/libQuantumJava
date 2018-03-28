@@ -74,14 +74,11 @@ public class QRegTest {
 
 	@Test
 	public void testGetWidth() {
-		fail("Not yet implemented");
+		assertEquals(4, reg.getWidth());
+		assertEquals(4, reg2.getWidth());
 	}
 
-	@Test
-	public void testSetWidth() {
-		fail("Not yet implemented");
-	}
-
+	
 	@Test
 	public void testGetSize() {
 		fail("Not yet implemented");

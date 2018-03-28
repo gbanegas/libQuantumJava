@@ -1,4 +1,4 @@
-package libQ.utils;
+package libQ.register;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -7,10 +7,8 @@ import java.util.Random;
 
 import org.apache.commons.math3.complex.Complex;
 
-import libQ.register.QReg;
-
 public class QMeasurement {
-
+	
 	public static BigInteger measure(QReg reg) {
 		double r;
 		int i;
@@ -75,29 +73,29 @@ public class QMeasurement {
 					BigInteger tmp_1 = BigInteger.ONE.shiftLeft(k);
 					rpat = rpat.add(tmp_1);
 				}
-
+				
 				rpat = rpat.and(reg.getState().get(i));
 
 				for (k = 63, lpat = BigInteger.ZERO; k > position; k--) {
 					BigInteger tmp_lpat = BigInteger.ONE.shiftLeft(k);
 					lpat = lpat.add(tmp_lpat);
 				}
-
+				
 				lpat = lpat.and(reg.getState().get(i));
-
+				
 				BigInteger lapt_shift = BigInteger.ONE.shiftRight(lpat.intValue());
 				nState.add(j, lapt_shift.or(rpat));
 				Complex n = (reg.getAmplitude().get(i).multiply(Complex.ONE)).subtract(new Complex(Math.sqrt(d)));
 				nAmplitude.add(j, n);
 
-				// out.state[j] = (lpat >> 1) | rpat;
-				// out.amplitude[j] = reg.amplitude[i] * 1 / (float) sqrt(d);
+				//out.state[j] = (lpat >> 1) | rpat;
+				//out.amplitude[j] = reg.amplitude[i] * 1 / (float) sqrt(d);
 
 				j++;
 			}
 		}
 		reg.setSize(size);
-		reg.setWidth(reg.getWidth() - 1);
+		reg.setWidth(reg.getWidth()-1);
 		reg.setState(nState);
 		reg.setAmplitude(nAmplitude);
 

@@ -1,4 +1,4 @@
-package libQ.utils;
+package libQ.register.utils;
 
 import java.math.BigInteger;
 import java.rmi.UnexpectedException;
@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
+import libQ.register.QMeasurement;
 import libQ.register.QReg;
 
 public class GateApplication {

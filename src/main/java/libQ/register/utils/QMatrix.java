@@ -1,4 +1,4 @@
-package libQ.utils;
+package libQ.register.utils;
 
 import org.apache.commons.math3.complex.Complex;
 

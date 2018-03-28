@@ -6,8 +6,8 @@ import org.apache.commons.math3.complex.Complex;
 
 import exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
-import libQ.utils.GateApplication;
-import libQ.utils.QMatrix;
+import libQ.register.utils.GateApplication;
+import libQ.register.utils.QMatrix;
 
 public class HadamardGate implements IGate {
 
