@@ -13,6 +13,8 @@ import libQ.register.QReg;
 public class GateApplication {
 
 	private static double EPSILON = 1e-6;
+	
+	//TODO: try to speed up here with parallelism
 
 	/**
 	 * 

@@ -1,11 +1,13 @@
 package libQ.register;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import java.math.BigInteger;
 import java.rmi.UnexpectedException;
+import java.util.ArrayList;
 
+import org.apache.commons.math3.complex.Complex;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -101,57 +103,70 @@ public class QRegTest {
 
 	@Test
 	public void testGetHashw() {
-		fail("Not yet implemented");
+		assertEquals(reg.getWidth() + 2, reg.getHashw());
 	}
 
 	@Test
 	public void testSetHashw() {
-		fail("Not yet implemented");
+		reg.setHashw(100);
+		assertEquals(100, reg.getHashw());
 	}
 
 	@Test
 	public void testGetAmplitude() {
-		fail("Not yet implemented");
+		assertNotNull(reg.getAmplitude());
 	}
 
 	@Test
 	public void testSetAmplitude() {
-		fail("Not yet implemented");
+		ArrayList<Complex> objectToCompare = new ArrayList<>();
+		reg.setAmplitude(objectToCompare);
+		assertEquals(objectToCompare, reg.getAmplitude());
 	}
 
 	@Test
 	public void testGetState() {
-		fail("Not yet implemented");
+		assertNotNull(reg.getState());
 	}
 
 	@Test
 	public void testSetState() {
-		fail("Not yet implemented");
+		ArrayList<BigInteger> objectToCompare = new ArrayList<>();
+		reg.setState(objectToCompare);
+		assertEquals(objectToCompare, reg.getState());
 	}
 
 	@Test
 	public void testGetHash() {
-		fail("Not yet implemented");
+		assertNotNull(reg.getHash());
 	}
 
 	@Test
 	public void testSetHash() {
-		fail("Not yet implemented");
+		ArrayList<BigInteger> objectToCompare = new ArrayList<>();
+		reg.setHash(objectToCompare);
+		assertEquals(objectToCompare, reg.getHash());
 	}
 
 	@Test
 	public void testSetStateAtPosition() {
-		fail("Not yet implemented");
+		BigInteger state = new BigInteger("1000");
+		reg.setStateAtPosition(1, state);
+		assertEquals(state, reg.getState().get(1));
 	}
 
 	@Test
 	public void testSetAmplituteAtPosition() {
-		fail("Not yet implemented");
+		Complex amplitude = Complex.ONE;
+		reg.setAmplituteAtPosition(1, amplitude);
+		assertEquals(amplitude, reg.getAmplitude().get(1));
 	}
 
 	@Test
 	public void testSetHashValueAtPosition() {
-		fail("Not yet implemented");
+		BigInteger state = new BigInteger("1000");
+		reg.setHashValueAtPosition(1, state);
+		assertEquals(state, reg.getHash().get(1));
 	}
 
 }
