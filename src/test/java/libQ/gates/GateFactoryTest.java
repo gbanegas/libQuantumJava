@@ -1,6 +1,8 @@
 package libQ.gates;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -27,33 +29,48 @@ public class GateFactoryTest {
 	}
 
 	@Test
-	public void testGateFactory() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		GateFactory instance = null;
+		assertNull(instance);
+		instance = GateFactory.getInstance();
+		assertNotNull(instance);
+
 	}
 
 	@Test
 	public void testGetGate() {
-		fail("Not yet implemented");
+		IGate gate = null;
+		assertNull(gate);
+		gate = GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		assertNotNull(gate);
+
 	}
 
 	@Test
 	public void testGetNrHadamardGate() {
-		fail("Not yet implemented");
+		assertEquals(0, GateFactory.getInstance().getNrHadamardGate());
+		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		assertEquals(3, GateFactory.getInstance().getNrHadamardGate());
 	}
 
 	@Test
 	public void testGetNrCNotGate() {
-		fail("Not yet implemented");
+		assertEquals(1, GateFactory.getInstance().getNrCNotGate());
+		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		assertEquals(4, GateFactory.getInstance().getNrCNotGate());
 	}
 
 	@Test
 	public void testGetNrToffoli() {
-		fail("Not yet implemented");
+		assertEquals(0, GateFactory.getInstance().getNrToffoli());
+		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
+		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
+		assertEquals(3, GateFactory.getInstance().getNrToffoli());
 	}
 
 }
