@@ -1,5 +1,7 @@
 package libQ.gates;
 
+import java.math.BigInteger;
+
 import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
@@ -11,21 +13,26 @@ import libQ.register.QReg;
 public class SigmaXGate implements IGate {
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit, int targetQBit) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("SigmaXGate just need one target bit");
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermittedException {
+		throw new OperationNotPermittedException("SigmaXGate just need one target bit");
 	}
 
 	@Override
 	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException {
-		// TODO Auto-generated method stub
-		return null;
+
+		for (int i = 0; i < reg.getSize(); i++) {
+			/* Flip the target bit of each basis state */
+			BigInteger tmp = BigInteger.ONE.shiftLeft(targetQBit);
+			BigInteger nState = reg.getState().get(i).xor(tmp);
+			reg.setStateAtPosition(i, nState);
+
+		}
+		return true;
 	}
 
 }
