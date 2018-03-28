@@ -24,6 +24,7 @@ public class Main {
 		h.apply(reg, 2);
 		reg.quantum_print_qureg();*/
 		System.out.println(reg.measureQBitAtPosition(1));
+		reg.quantum_print_qureg();
 		/*
 		 * h.apply(reg, 3, 2, 0); reg.quantum_print_qureg();
 		 * System.out.println(GateFactory.getInstance().getNrCNotGate());
