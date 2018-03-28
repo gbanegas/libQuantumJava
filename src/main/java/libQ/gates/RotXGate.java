@@ -42,4 +42,10 @@ public class RotXGate implements IGate {
 		return null;
 	}
 
+	@Override
+	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

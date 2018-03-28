@@ -1,6 +1,7 @@
 package libQ.gates;
 
 import java.math.BigInteger;
+import java.rmi.UnexpectedException;
 
 import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
@@ -12,6 +13,11 @@ import libQ.register.QReg;
  */
 public class SigmaXGate implements IGate {
 
+	@Override
+	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	@Override
 	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
 		throw new OperationNotPermittedException("SigmaXGate just need one target bit");

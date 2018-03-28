@@ -13,6 +13,11 @@ import libQ.register.QReg;
  *
  */
 public class RotZGate implements IGate {
+	@Override
+	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/* (non-Javadoc)
 	 * @see libQ.gates.IGate#apply(libQ.register.QReg, int)

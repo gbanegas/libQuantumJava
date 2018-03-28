@@ -14,6 +14,12 @@ import libQ.register.utils.QMatrix;
  *
  */
 public class HadamardGate implements IGate {
+	
+	@Override
+	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Boolean apply(QReg reg, int targetQBit) throws UnexpectedException {
