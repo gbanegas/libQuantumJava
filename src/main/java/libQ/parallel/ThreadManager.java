@@ -3,7 +3,7 @@ package libQ.parallel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThreadManager {
+public class ThreadManager  {
 
 	private Map<Long, Thread> threadMap;
 
@@ -15,8 +15,9 @@ public class ThreadManager {
 	}
 
 	public static ThreadManager getInstance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new ThreadManager();
+		}
 
 		return instance;
 	}
@@ -32,5 +33,7 @@ public class ThreadManager {
 	public Thread getThread(Long id) {
 		return threadMap.get(id);
 	}
+
+	
 
 }

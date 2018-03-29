@@ -41,7 +41,7 @@ public class GateApplication {
 
 		BigInteger tmp_1 = BigInteger.ONE.shiftLeft(target);
 		ThreadQuantumState th_j = new ThreadQuantumState(reg, tmp_1);
-		th_j.start();
+		ThreadManager.getInstance().addThread(th_j);
 
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);

@@ -13,7 +13,7 @@ import libQ.register.QReg;
 public class Main {
 
 	public static void main(String[] args) throws OperationNotPermittedException, UnexpectedException, SizeHandleException {
-		QReg reg = new QReg(new BigInteger("1"), 31);
+		QReg reg = new QReg(new BigInteger("1"), 17);
 
 		System.out.println(reg);
 		IGate h = GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);

@@ -28,7 +28,7 @@ public class HadamardGate implements IGate {
 	@Override
 	public Boolean apply(QReg reg, int targetQBit) throws UnexpectedException, SizeHandleException {
 
-		if (reg.getWidth() > 25) {
+		if (reg.getWidth() >= 17) {
 			throw new SizeHandleException("Too many qubits for computing hadamard.");
 
 		}

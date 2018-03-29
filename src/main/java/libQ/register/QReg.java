@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.math3.complex.Complex;
 
 import libQ.parallel.ThreadAddHash;
+import libQ.parallel.ThreadManager;
 
 /**
  * 
@@ -29,7 +30,8 @@ public class QReg {
 		// BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
 		hash = new ArrayList<>();
 		threadHash = new ThreadAddHash(hash, hashw);
-		threadHash.start();
+		ThreadManager.getInstance().addThread(threadHash);
+		//threadHash.start();
 
 		/*
 		 * for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i =
