@@ -17,7 +17,7 @@ import libQ.register.utils.QMatrix;
  * @author Gustavo Banegas
  *
  */
-public class HadamardGate implements IGate {
+class HadamardGate implements IGate {
 
 	@Override
 	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {

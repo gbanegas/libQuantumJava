@@ -11,7 +11,7 @@ import libQ.register.QReg;
  * @author Gustavo Banegas
  *
  */
-public class CNOTGate implements IGate {
+class CNOTGate implements IGate {
 	@Override
 	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
 		// TODO Auto-generated method stub
@@ -34,7 +34,8 @@ public class CNOTGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermittedException {
+	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit)
+			throws OperationNotPermittedException {
 		throw new OperationNotPermittedException("CNOT just need one control bit");
 	}
 

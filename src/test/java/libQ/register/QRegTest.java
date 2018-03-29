@@ -90,7 +90,7 @@ public class QRegTest {
 	@Test
 	public void testGetSize() throws UnexpectedException, OperationNotPermittedException, SizeHandleException {
 		assertEquals(1, reg.getSize());
-		IGate hadamardGate = GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		IGate hadamardGate = GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
 		hadamardGate.apply(reg, 0);
 		assertEquals(2, reg.getSize());
 	}

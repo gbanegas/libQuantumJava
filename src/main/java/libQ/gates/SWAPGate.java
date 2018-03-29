@@ -19,8 +19,12 @@ public class SWAPGate implements IGate {
 
 	@Override
 	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
-		//TODO: implement using CNOTs or using matrix?
-		return null;
+		// TODO: implement using CNOTs or using matrix?
+		CNOTGate cnotGate = new CNOTGate();
+		cnotGate.apply(reg, controlQBit, targetQBit);
+		cnotGate.apply(reg, targetQBit, controlQBit);
+		cnotGate.apply(reg, controlQBit, targetQBit);
+		return true;
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class GateFactoryTest {
 	public void testGetGate() {
 		IGate gate = null;
 		assertNull(gate);
-		gate = GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		gate = GateFactory.getInstance().getGate(EGateTypes.CNOTGATE);
 		assertNotNull(gate);
 
 	}
@@ -49,27 +49,27 @@ public class GateFactoryTest {
 	@Test
 	public void testGetNrHadamardGate() {
 		assertEquals(0, GateFactory.getInstance().getNrHadamardGate());
-		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
+		GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
+		GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
+		GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
 		assertEquals(3, GateFactory.getInstance().getNrHadamardGate());
 	}
 
 	@Test
 	public void testGetNrCNotGate() {
 		assertEquals(1, GateFactory.getInstance().getNrCNotGate());
-		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_CNotGate);
+		GateFactory.getInstance().getGate(EGateTypes.CNOTGATE);
+		GateFactory.getInstance().getGate(EGateTypes.CNOTGATE);
+		GateFactory.getInstance().getGate(EGateTypes.CNOTGATE);
 		assertEquals(4, GateFactory.getInstance().getNrCNotGate());
 	}
 
 	@Test
 	public void testGetNrToffoli() {
 		assertEquals(0, GateFactory.getInstance().getNrToffoli());
-		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
-		GateFactory.getInstance().getGate(EGateTypes.E_ToffoliGate);
+		GateFactory.getInstance().getGate(EGateTypes.TOFFOLIGATE);
+		GateFactory.getInstance().getGate(EGateTypes.TOFFOLIGATE);
+		GateFactory.getInstance().getGate(EGateTypes.TOFFOLIGATE);
 		assertEquals(3, GateFactory.getInstance().getNrToffoli());
 	}
 

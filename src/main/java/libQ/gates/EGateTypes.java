@@ -9,38 +9,35 @@ public enum EGateTypes {
 	/**
 	 * Hadamard Gate
 	 */
-	E_HadamardGate,
+	HADAMARDGATE,
 	/**
 	 * Pauli-X Gate
 	 */
-	E_XPauliGate,
+
 	/**
-	 * Pauli-Y Gate
+	 * Sigma-X Gate
 	 */
-	/*
-	 * E_YGate,
-	 *//**
-		 * Pauli-Z Gate
-		 */
-	/*
-	 * E_ZGate,
-	 *//**
-		 * CNOT Gate
-		 */
-	E_CNotGate,
+	SIGMAXGATE,
 	/**
-	 * Controlled Phase Shift
+	 * Sigma-Y Gate
 	 */
-	/*
-	 * E_CPhaseShift,
-	 *//**
-		 * Identity gate
-		 *//*
-			 * E_IGate,
-			 */
+	SIGMAYGATE,
+	/**
+	 * Sigma-Z Gate
+	 */
+	SIGMAZGATE,
+	/**
+	 * CNOT Gate
+	 */
+	CNOTGATE,
 
 	/**
 	 * Toffoli Gate
 	 */
-	E_ToffoliGate
+	TOFFOLIGATE,
+
+	/**
+	 * Swap Gate
+	 */
+	SWAPGATE
 }

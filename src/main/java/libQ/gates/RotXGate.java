@@ -12,7 +12,7 @@ import libQ.register.QReg;
  * @author Gustavo Banegas
  *
  */
-public class RotXGate implements IGate {
+class RotXGate implements IGate {
 
 	/* (non-Javadoc)
 	 * @see libQ.gates.IGate#apply(libQ.register.QReg, int)

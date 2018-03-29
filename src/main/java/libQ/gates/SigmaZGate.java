@@ -13,7 +13,7 @@ import libQ.register.QReg;
  * @author Gustavo Banegas
  *
  */
-public class SigmaZGate implements IGate {
+class SigmaZGate implements IGate {
 	
 	@Override
 	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {

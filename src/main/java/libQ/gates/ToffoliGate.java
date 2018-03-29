@@ -11,8 +11,8 @@ import libQ.register.QReg;
  * @author Gustavo Banegas
  *
  */
-public class ToffoliGate implements IGate {
-	
+class ToffoliGate implements IGate {
+
 	@Override
 	public Boolean apply(QReg reg, int target, float gamma) throws OperationNotPermittedException, UnexpectedException {
 		// TODO Auto-generated method stub
