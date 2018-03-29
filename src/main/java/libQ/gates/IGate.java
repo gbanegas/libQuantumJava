@@ -3,6 +3,7 @@ package libQ.gates;
 import java.rmi.UnexpectedException;
 
 import libQ.exceptions.OperationNotPermittedException;
+import libQ.exceptions.SizeHandleException;
 import libQ.register.QReg;
 
 /**
@@ -12,7 +13,7 @@ import libQ.register.QReg;
  */
 public interface IGate {
 	
-	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException, UnexpectedException;
+	public Boolean apply(QReg reg, int targetQBit) throws OperationNotPermittedException, UnexpectedException, SizeHandleException;
 	
 	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException;
 	

@@ -5,6 +5,7 @@ import java.rmi.UnexpectedException;
 import org.apache.commons.math3.complex.Complex;
 
 import libQ.exceptions.OperationNotPermittedException;
+import libQ.exceptions.SizeHandleException;
 import libQ.parallel.ThreadApplyQMatrix;
 import libQ.parallel.ThreadManager;
 import libQ.register.QReg;
@@ -25,7 +26,12 @@ public class HadamardGate implements IGate {
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int targetQBit) throws UnexpectedException {
+	public Boolean apply(QReg reg, int targetQBit) throws UnexpectedException, SizeHandleException {
+
+		if (reg.getWidth() > 25) {
+			throw new SizeHandleException("Too many qubits for computing hadamard.");
+
+		}
 		ThreadApplyQMatrix thread = new ThreadApplyQMatrix(reg, targetQBit);
 		Long id = ThreadManager.getInstance().addThread(thread);
 		QMatrix matrix = new QMatrix(2, 2);

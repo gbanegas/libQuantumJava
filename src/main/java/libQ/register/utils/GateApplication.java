@@ -9,6 +9,7 @@ import org.apache.commons.math3.complex.Complex;
 
 import libQ.parallel.ThreadApplyQMatrix;
 import libQ.parallel.ThreadManager;
+import libQ.parallel.ThreadQuantumState;
 import libQ.register.QMeasurement;
 import libQ.register.QReg;
 
@@ -38,12 +39,16 @@ public class GateApplication {
 		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
 		ThreadApplyQMatrix th = (ThreadApplyQMatrix) ThreadManager.getInstance().getThread(threadId);
 
+		BigInteger tmp_1 = BigInteger.ONE.shiftLeft(target);
+		ThreadQuantumState th_j = new ThreadQuantumState(reg, tmp_1);
+		th_j.start();
+
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);
 			while (th.isAlive()) {
 				;
 			}
-			
+
 			List<BigInteger> qStateList = th.getList();
 			for (i = 0; i < reg.getSize(); i++) {
 				if (qStateList.get(i).compareTo(new BigInteger("-1")) == 0)
@@ -62,17 +67,23 @@ public class GateApplication {
 		for (i = 0; i < reg.getSize(); i++) {
 			done.add(Boolean.FALSE);
 		}
+
+		while (th_j.isAlive()) {
+			;
+		}
+
 		for (i = 0; i < reg.getSize(); i++) {
 			if (!done.get(i)) {
 				/* determine if the target of the basis state is set */
-				BigInteger tmp_1 = BigInteger.ONE.shiftLeft(target);
 
 				iset = reg.getState().get(i).and(tmp_1);
 
 				tnot = Complex.ZERO;
 
-				BigInteger tmp_2 = reg.getState().get(i).xor(tmp_1);
-				j = QuantumUtils.getQState(tmp_2, reg);
+				// TODO: hmmm.. it is slow here: Generate a thread or try to adapt the exist
+				// one?
+
+				j = th_j.getList().get(i);
 				// j = quantum_get_state(reg->state[i] ^ ((MAX_UNSIGNED) 1<<target), *reg);
 				if (j.compareTo(BigInteger.ZERO) >= 0)
 					tnot = reg.getAmplitude().get(j.intValue());
@@ -180,7 +191,7 @@ public class GateApplication {
 	 * @throws InterruptedException
 	 * @throws UnexpectedException
 	 */
-	private static void reconstructHash(QReg reg){
+	private static void reconstructHash(QReg reg) {
 		int i;
 		if (reg.getHashw() == 0)
 			return;

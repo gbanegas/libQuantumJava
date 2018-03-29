@@ -15,6 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import libQ.exceptions.OperationNotPermittedException;
+import libQ.exceptions.SizeHandleException;
 import libQ.gates.EGateTypes;
 import libQ.gates.GateFactory;
 import libQ.gates.IGate;
@@ -87,7 +88,7 @@ public class QRegTest {
 	}
 
 	@Test
-	public void testGetSize() throws UnexpectedException, OperationNotPermittedException {
+	public void testGetSize() throws UnexpectedException, OperationNotPermittedException, SizeHandleException {
 		assertEquals(1, reg.getSize());
 		IGate hadamardGate = GateFactory.getInstance().getGate(EGateTypes.E_HadamardGate);
 		hadamardGate.apply(reg, 0);
@@ -135,7 +136,7 @@ public class QRegTest {
 		reg.setState(objectToCompare);
 		assertEquals(objectToCompare, reg.getState());
 	}
-/*
+
 	@Test
 	public void testGetHash() {
 		assertNotNull(reg.getHash());
@@ -146,7 +147,7 @@ public class QRegTest {
 		ArrayList<BigInteger> objectToCompare = new ArrayList<>();
 		reg.setHash(objectToCompare);
 		assertEquals(objectToCompare, reg.getHash());
-	}*/
+	}
 
 	@Test
 	public void testSetStateAtPosition() {
