@@ -135,7 +135,7 @@ public class QRegTest {
 		reg.setState(objectToCompare);
 		assertEquals(objectToCompare, reg.getState());
 	}
-
+/*
 	@Test
 	public void testGetHash() {
 		assertNotNull(reg.getHash());
@@ -146,7 +146,7 @@ public class QRegTest {
 		ArrayList<BigInteger> objectToCompare = new ArrayList<>();
 		reg.setHash(objectToCompare);
 		assertEquals(objectToCompare, reg.getHash());
-	}
+	}*/
 
 	@Test
 	public void testSetStateAtPosition() {
@@ -162,11 +162,11 @@ public class QRegTest {
 		assertEquals(amplitude, reg.getAmplitude().get(1));
 	}
 
-	@Test
+	/*@Test
 	public void testSetHashValueAtPosition() {
 		BigInteger state = new BigInteger("1000");
 		reg.setHashValueAtPosition(1, state);
 		assertEquals(state, reg.getHash().get(1));
-	}
+	}*/
 
 }

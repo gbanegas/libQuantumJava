@@ -7,9 +7,10 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
+import libQ.parallel.ThreadApplyQMatrix;
+import libQ.parallel.ThreadManager;
 import libQ.register.QMeasurement;
 import libQ.register.QReg;
-
 
 /**
  * 
@@ -19,8 +20,6 @@ import libQ.register.QReg;
 public class GateApplication {
 
 	private static double EPSILON = 1e-6;
-	
-	//TODO: try to speed up here with parallelism
 
 	/**
 	 * 
@@ -29,25 +28,27 @@ public class GateApplication {
 	 * @param reg
 	 * @throws UnexpectedException
 	 */
-	public static void applyQMatrix(int target, QMatrix m, QReg reg) throws UnexpectedException {
-		reg.getHash();
+	public static void applyQMatrix(int target, QMatrix m, QReg reg, Long threadId) throws UnexpectedException {
+		// TODO: Parallel this part
 		int i, decsize = 0;
 		int addsize = 0;
 		double limit = 0;
 		BigInteger iset, j;
 		Complex t, tnot;
 		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
+		ThreadApplyQMatrix th = (ThreadApplyQMatrix) ThreadManager.getInstance().getThread(threadId);
 
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);
+			while (th.isAlive()) {
+				;
+			}
+			
+			List<BigInteger> qStateList = th.getList();
 			for (i = 0; i < reg.getSize(); i++) {
-				/* determine whether XORed basis state already exists */
-				BigInteger tmp = reg.getState().get(i).xor(BigInteger.ONE.shiftLeft(target));
-
-				if (QuantumUtils.getQState(tmp, reg).compareTo(new BigInteger("-1")) == 0)
+				if (qStateList.get(i).compareTo(new BigInteger("-1")) == 0)
 					addsize++;
 			}
-
 			for (i = 0; i < addsize; i++) {
 				reg.setStateAtPosition(i + reg.getSize(), BigInteger.ZERO);
 				reg.setAmplituteAtPosition(i + reg.getSize(), Complex.ZERO);
@@ -165,10 +166,10 @@ public class GateApplication {
 				if (!(isOkTrunkState && isOkTrunkAmplitute)) {
 					throw new UnexpectedException("Error trunking state or amplitute");
 				}
-				
+
 			}
 		}
-		
+
 		QuantumUtils.quantumDecohere(reg);
 
 	}
@@ -176,8 +177,10 @@ public class GateApplication {
 	/**
 	 * 
 	 * @param reg
+	 * @throws InterruptedException
+	 * @throws UnexpectedException
 	 */
-	private static void reconstructHash(QReg reg) {
+	private static void reconstructHash(QReg reg){
 		int i;
 		if (reg.getHashw() == 0)
 			return;
