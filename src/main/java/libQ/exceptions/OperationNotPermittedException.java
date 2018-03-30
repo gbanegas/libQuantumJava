@@ -2,6 +2,7 @@ package libQ.exceptions;
 
 /**
  * 
+ * There is something wrong with the parameters.
  * @author Gustavo Banegas
  *
  */

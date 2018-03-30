@@ -7,7 +7,7 @@ import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 /**
- * 
+ * Controlled-NOT gate for quantum qbits
  * @author Gustavo Banegas
  *
  */

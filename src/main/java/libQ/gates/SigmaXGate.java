@@ -8,6 +8,8 @@ import libQ.register.QReg;
 
 /**
  * 
+ * SIGMA X gate: it is an inverter gate
+ * 
  * @author Gustavo Banegas
  *
  */
@@ -18,13 +20,15 @@ class SigmaXGate implements IGate {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public Boolean apply(QReg reg, int controlQBit, int targetQBit) throws OperationNotPermittedException {
 		throw new OperationNotPermittedException("SigmaXGate just need one target bit");
 	}
 
 	@Override
-	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit) throws OperationNotPermittedException {
+	public Boolean apply(QReg reg, int controlQBit1, int controlQBit2, int targetQBit)
+			throws OperationNotPermittedException {
 		throw new OperationNotPermittedException("SigmaXGate just need one target bit");
 	}
 

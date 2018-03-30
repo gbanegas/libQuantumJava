@@ -7,6 +7,8 @@ import libQ.register.QReg;
 
 /**
  * 
+ * SWAP GATE:
+ * it is implemented runing 3 CNOT gates;
  * @author Gustavo Banegas
  *
  */

@@ -7,7 +7,7 @@ import libQ.exceptions.OperationNotPermittedException;
 import libQ.register.QReg;
 
 /**
- * 
+ * Toffoli gate;
  * @author Gustavo Banegas
  *
  */

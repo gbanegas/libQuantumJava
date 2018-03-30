@@ -1,4 +1,4 @@
-package libQ.parallel;
+package libQ.gates;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,15 +6,14 @@ import org.apache.commons.math3.complex.Complex;
 
 import libQ.exceptions.OperationNotPermittedException;
 import libQ.exceptions.SizeHandleException;
-import libQ.parallel.ThreadAddHash;
-import libQ.parallel.ThreadApplyQMatrix;
-import libQ.parallel.ThreadManager;
 import libQ.register.QReg;
 import libQ.register.utils.GateApplication;
 import libQ.register.utils.QMatrix;
 
 /**
  * 
+ * Hadamard Gate:
+ * The gate put the register in a quantum superposition.
  * @author Gustavo Banegas
  *
  */

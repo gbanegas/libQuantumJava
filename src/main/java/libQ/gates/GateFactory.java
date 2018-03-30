@@ -2,6 +2,8 @@ package libQ.gates;
 
 /**
  * 
+ * Factory for gates. It is necessary since we are couting the 
+ * gates of the quantum circuit.
  * @author Gustavo Banegas
  *
  */

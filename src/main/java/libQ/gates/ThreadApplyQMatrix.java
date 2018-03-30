@@ -1,4 +1,4 @@
-package libQ.parallel;
+package libQ.gates;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

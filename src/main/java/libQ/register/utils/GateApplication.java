@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import libQ.parallel.ThreadApplyQMatrix;
-import libQ.parallel.ThreadManager;
-import libQ.parallel.ThreadQuantumState;
+import libQ.gates.ThreadApplyQMatrix;
+import libQ.gates.ThreadManager;
+import libQ.gates.ThreadQuantumState;
 import libQ.register.QMeasurement;
 import libQ.register.QReg;
 

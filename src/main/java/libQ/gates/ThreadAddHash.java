@@ -1,9 +1,9 @@
-package libQ.parallel;
+package libQ.gates;
 
 import java.math.BigInteger;
 import java.util.List;
 
-public class ThreadAddHash extends Thread {
+ class ThreadAddHash extends Thread {
 
 	private List<BigInteger> list;
 	private int hashw;
