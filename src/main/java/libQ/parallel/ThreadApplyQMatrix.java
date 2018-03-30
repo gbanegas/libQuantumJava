@@ -21,7 +21,7 @@ public class ThreadApplyQMatrix extends Thread {
 
 	@Override
 	public void run() {
-		//System.out.println("Thread " + this.getId() + " starting....");
+		// System.out.println("Thread " + this.getId() + " starting....");
 		for (int i = 0; i < reg.getSize(); i++) {
 			/* determine whether XORed basis state already exists */
 			BigInteger tmp = reg.getState().get(i).xor(BigInteger.ONE.shiftLeft(target));
@@ -29,11 +29,12 @@ public class ThreadApplyQMatrix extends Thread {
 			value = QuantumUtils.getQState(tmp, reg);
 			list.add(value);
 		}
-		//System.out.println("Thread " + this.getId() + " finished....");
+		// System.out.println("Thread " + this.getId() + " finished....");
 	}
 
 	public List<BigInteger> getList() {
 		return this.list;
 	}
+
 
 }

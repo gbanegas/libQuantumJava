@@ -30,12 +30,12 @@ public class GateApplication {
 	 * @throws UnexpectedException
 	 */
 	public static void applyQMatrix(int target, QMatrix m, QReg reg, Long threadId) throws UnexpectedException {
-		// TODO: Parallel this part
 		int i, decsize = 0;
 		int addsize = 0;
 		double limit = 0;
 		BigInteger iset, j;
 		Complex t, tnot;
+
 		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
 		ThreadApplyQMatrix th = (ThreadApplyQMatrix) ThreadManager.getInstance().getThread(threadId);
 

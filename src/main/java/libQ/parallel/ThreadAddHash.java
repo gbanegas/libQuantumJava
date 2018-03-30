@@ -16,17 +16,18 @@ public class ThreadAddHash extends Thread {
 
 	@Override
 	public void run() {
-		//System.out.println("Thread " + this.getId() + " starting....");
+		// System.out.println("Thread " + this.getId() + " starting....");
 		BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
-		
+
 		for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i = i.add(BigInteger.ONE)) {
 			list.add(i);
 		}
-		//System.out.println("Thread " + this.getId() + " finished....");
+		// System.out.println("Thread " + this.getId() + " finished....");
 	}
 
 	public List<BigInteger> getList() {
 		return this.list;
 	}
+
 
 }

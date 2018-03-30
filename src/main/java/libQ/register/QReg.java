@@ -6,9 +6,6 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import libQ.parallel.ThreadAddHash;
-import libQ.parallel.ThreadManager;
-
 /**
  * 
  * @author Gustavo Banegas
@@ -21,7 +18,6 @@ public class QReg {
 	private List<Complex> amplitude;
 	private List<BigInteger> state;
 	private List<BigInteger> hash;
-	private ThreadAddHash threadHash;
 
 	public QReg(BigInteger initval, int width) {
 		this.width = width;
@@ -29,9 +25,8 @@ public class QReg {
 		this.hashw = width + 2;
 		// BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
 		hash = new ArrayList<>();
-		threadHash = new ThreadAddHash(hash, hashw);
-		ThreadManager.getInstance().addThread(threadHash);
-		//threadHash.start();
+
+		// threadHash.start();
 
 		/*
 		 * for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i =
@@ -180,9 +175,6 @@ public class QReg {
 	 * @return the hash
 	 */
 	public List<BigInteger> getHash() {
-		while (this.threadHash.isAlive()) {
-			
-		}
 		return hash;
 	}
 
@@ -191,8 +183,6 @@ public class QReg {
 	 *            the hash to set
 	 */
 	public void setHash(List<BigInteger> hash) {
-		while (this.threadHash.isAlive()) {
-		}
 		this.hash = hash;
 	}
 
@@ -214,8 +204,6 @@ public class QReg {
 	}
 
 	public void setHashValueAtPosition(int index, BigInteger tmp) {
-		while (this.threadHash.isAlive()) {
-		}
 		if (index >= this.amplitude.size()) {
 			this.hash.add(index, tmp);
 		} else {

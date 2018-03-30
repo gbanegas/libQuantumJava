@@ -6,6 +6,7 @@ import org.apache.commons.math3.complex.Complex;
 
 import libQ.exceptions.OperationNotPermittedException;
 import libQ.exceptions.SizeHandleException;
+import libQ.parallel.ThreadAddHash;
 import libQ.parallel.ThreadApplyQMatrix;
 import libQ.parallel.ThreadManager;
 import libQ.register.QReg;
@@ -32,6 +33,13 @@ class HadamardGate implements IGate {
 			throw new SizeHandleException("Too many qubits for computing hadamard.");
 
 		}
+		ThreadAddHash threadHash = new ThreadAddHash(reg.getHash(), reg.getHashw());
+		ThreadManager.getInstance().addThread(threadHash);
+		while (threadHash.isAlive()) {
+			;
+		}
+
+		reg.setHash(threadHash.getList());
 		ThreadApplyQMatrix thread = new ThreadApplyQMatrix(reg, targetQBit);
 		Long id = ThreadManager.getInstance().addThread(thread);
 		QMatrix matrix = new QMatrix(2, 2);

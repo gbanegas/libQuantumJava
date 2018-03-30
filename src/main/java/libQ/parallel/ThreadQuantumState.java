@@ -31,4 +31,5 @@ public class ThreadQuantumState extends Thread {
 	public List<BigInteger> getList() {
 		return this.list;
 	}
+
 }
