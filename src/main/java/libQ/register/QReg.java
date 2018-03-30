@@ -107,7 +107,7 @@ public class QReg {
 	 * @param width
 	 *            the width to set
 	 */
-	protected void setWidth(int width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 

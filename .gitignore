@@ -23,3 +23,4 @@ hs_err_pid*
 /.gradle/
 /bin/
 /.attach_pid1605
+/build/

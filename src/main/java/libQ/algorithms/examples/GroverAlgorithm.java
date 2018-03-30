@@ -17,9 +17,14 @@ import libQ.register.QReg;
  *
  */
 public class GroverAlgorithm {
+	//TODO: check why it is not working.
 
-	public GroverAlgorithm() {
-
+	static void final_measure(QReg reg)
+			throws UnexpectedException, OperationNotPermittedException, SizeHandleException {
+		IGate hadamard = GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
+		hadamard.apply(reg, reg.getWidth());
+		reg.setWidth(reg.getWidth() + 1);
+		reg.measureQBitAtPosition(reg.getWidth() - 1);
 	}
 
 	static void grover(int target, QReg reg)
@@ -41,7 +46,8 @@ public class GroverAlgorithm {
 		}
 	}
 
-	private static void inversion(QReg reg) throws UnexpectedException, OperationNotPermittedException, SizeHandleException {
+	private static void inversion(QReg reg)
+			throws UnexpectedException, OperationNotPermittedException, SizeHandleException {
 		int i;
 		IGate gate;
 		for (i = 0; i < reg.getWidth(); i++) {
@@ -149,7 +155,7 @@ public class GroverAlgorithm {
 			grover(N, reg);
 		}
 
-		// final_measure(&reg);
+		final_measure(reg);
 
 		for (i = 0; i < reg.getSize(); i++) {
 			// if(reg.state[i] == N)
