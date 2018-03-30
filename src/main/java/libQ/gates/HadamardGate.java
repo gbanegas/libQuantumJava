@@ -39,14 +39,12 @@ class HadamardGate implements IGate {
 		}
 
 		reg.setHash(threadHash.getList());
-		ThreadApplyQMatrix thread = new ThreadApplyQMatrix(reg, targetQBit);
-		Long id = ThreadManager.getInstance().addThread(thread);
 		QMatrix matrix = new QMatrix(2, 2);
 		matrix.getT()[0] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[1] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[2] = new Complex(Math.sqrt(1.0 / 2));
 		matrix.getT()[3] = new Complex(-Math.sqrt(1.0 / 2));
-		GateApplication.applyQMatrix(targetQBit, matrix, reg, id);
+		GateApplication.applyQMatrix(targetQBit, matrix, reg);
 
 		return true;
 	}

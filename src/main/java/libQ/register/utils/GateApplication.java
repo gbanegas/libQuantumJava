@@ -7,9 +7,6 @@ import java.util.List;
 
 import org.apache.commons.math3.complex.Complex;
 
-import libQ.gates.ThreadApplyQMatrix;
-import libQ.gates.ThreadManager;
-import libQ.gates.ThreadQuantumState;
 import libQ.register.QMeasurement;
 import libQ.register.QReg;
 
@@ -29,7 +26,7 @@ public class GateApplication {
 	 * @param reg
 	 * @throws UnexpectedException
 	 */
-	public static void applyQMatrix(int target, QMatrix m, QReg reg, Long threadId) throws UnexpectedException {
+	public static void applyQMatrix(int target, QMatrix m, QReg reg) throws UnexpectedException {
 		int i, decsize = 0;
 		int addsize = 0;
 		double limit = 0;
@@ -37,21 +34,16 @@ public class GateApplication {
 		Complex t, tnot;
 
 		BigInteger tmp_limit = BigInteger.ONE.shiftLeft(reg.getWidth());
-		ThreadApplyQMatrix th = (ThreadApplyQMatrix) ThreadManager.getInstance().getThread(threadId);
 
 		BigInteger tmp_1 = BigInteger.ONE.shiftLeft(target);
-		ThreadQuantumState th_j = new ThreadQuantumState(reg, tmp_1);
-		ThreadManager.getInstance().addThread(th_j);
 
 		if (reg.getHashw() != 0) {
 			reconstructHash(reg);
-			while (th.isAlive()) {
-				;
-			}
-
-			List<BigInteger> qStateList = th.getList();
 			for (i = 0; i < reg.getSize(); i++) {
-				if (qStateList.get(i).compareTo(new BigInteger("-1")) == 0)
+				BigInteger tmp = reg.getState().get(i).xor(BigInteger.ONE.shiftLeft(target));
+				BigInteger value;
+				value = QuantumUtils.getQState(tmp, reg);
+				if (value.compareTo(new BigInteger("-1")) == 0)
 					addsize++;
 			}
 			for (i = 0; i < addsize; i++) {
@@ -68,10 +60,6 @@ public class GateApplication {
 			done.add(Boolean.FALSE);
 		}
 
-		while (th_j.isAlive()) {
-			;
-		}
-
 		for (i = 0; i < reg.getSize(); i++) {
 			if (!done.get(i)) {
 				/* determine if the target of the basis state is set */
@@ -80,10 +68,8 @@ public class GateApplication {
 
 				tnot = Complex.ZERO;
 
-				// TODO: hmmm.. it is slow here: Generate a thread or try to adapt the exist
-				// one?
-
-				j = th_j.getList().get(i);
+				BigInteger tmp_2 = reg.getState().get(i).xor(tmp_1);
+				j = QuantumUtils.getQState(tmp_2, reg);
 				// j = quantum_get_state(reg->state[i] ^ ((MAX_UNSIGNED) 1<<target), *reg);
 				if (j.compareTo(BigInteger.ZERO) >= 0)
 					tnot = reg.getAmplitude().get(j.intValue());
