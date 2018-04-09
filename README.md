@@ -23,3 +23,13 @@ gradle build
 
 
 
+## Logo: Why an anteater?
+"The giant anteater, an iconic creature of South America, is unfortunately listed as vulnerable to extinction." Unfortunatelly, this is a reality for several animails around the world since I am really worried about the enviroment I selected an animal that I would like to help. 
+
+If you would like more information at:
+https://ptes.org/grants/worldwide-projects/giant-anteater-brazil/
+
+If you are willing to help, please donate to:
+https://ptes.org/ 
+or
+http://www.tamandua.org/
