@@ -1,6 +1,6 @@
 ![LibQuantumJ](https://github.com/gbanegas/libQuantumJava/blob/master/logo.jpg)
 
-# libQuantumJava (lQJ)
+# LibQuantumJava (LQJ)
 
 *beta version* 
 *version not stable!!*
@@ -22,9 +22,4 @@ gradle build
 ```
 
 
-# TODO
-
-Add wiki
-
-add grover
 
