@@ -1,3 +1,5 @@
+![LibQuantumJ](https://github.com/gbanegas/libQuantumJava/blob/master/logo.jpg)
+
 # libQuantumJava (lQJ)
 
 *beta version* 
