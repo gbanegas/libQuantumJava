@@ -3,11 +3,12 @@
 # LibQuantumJava (LQJ)
 
 *beta version* 
+
 *version not stable!!*
 
 This is a crude translation from th C implementation of [libquantum](http://www.libquantum.de/) to a Java version. 
 
-The main idea is to be able to work with CNOT / Toffoli  and other gates that are not necessary to use superposition and one needs more than 1024 qubits. 
+The main idea is to be able to work with CNOT / Toffoli  and other gates that are not necessary to use superposition. LibQuantumJava supports up to 2048 qubits, the "C implementation" covers only 128 qubits. 
 
 ## How to build
 
