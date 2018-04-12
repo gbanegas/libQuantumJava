@@ -19,6 +19,45 @@ public class QReg {
 	private List<BigInteger> state;
 	private List<BigInteger> hash;
 
+	/**
+	 * Constructor of Quantum Register
+	 * 
+	 * @param width
+	 *            desired size of the quantum register
+	 */
+	public QReg(int width) {
+		this.width = width;
+		this.size = 1;
+		this.hashw = width + 2;
+		// BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
+		hash = new ArrayList<>();
+
+		// threadHash.start();
+
+		/*
+		 * for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i =
+		 * i.add(BigInteger.ONE)) { hash.add(i); }
+		 */
+
+		this.amplitude = new ArrayList<>();
+		this.state = new ArrayList<>();
+
+		this.amplitude.add(Complex.ONE);
+		for (int i = 1; i < size; i++) {
+			this.amplitude.add(Complex.ZERO);
+		}
+		this.state.add(BigInteger.ZERO);
+
+	}
+
+	/**
+	 * 
+	 * @param initval
+	 *            Initial value that the register will hold. The value will be
+	 *            converted in binary.
+	 * @param width
+	 *            desired size of the quantum register
+	 */
 	public QReg(BigInteger initval, int width) {
 		this.width = width;
 		this.size = 1;
@@ -43,21 +82,6 @@ public class QReg {
 		this.state.add(initval);
 
 	}
-
-	/*
-	 * public QReg(int size, int width) { this.width = width; this.size = size;
-	 * this.hashw = 0;
-	 * 
-	 * this.hash = BigInteger.ZERO;
-	 * 
-	 * this.amplitude = new ArrayList<>(); this.state = new ArrayList<>(); for(int i
-	 * =0; i < size;i++) { this.amplitude.add(Complex.ZERO); } for(int i = 0; i <
-	 * width; i++) this.state.add(BigInteger.ZERO);
-	 * 
-	 * // this.amplitude.add(Complex.ONE);
-	 * 
-	 * }
-	 */
 
 	@Override
 	public String toString() {
@@ -88,10 +112,23 @@ public class QReg {
 		return builder.toString();
 	}
 
+	/**
+	 * Measured a qubit at the position. It will break the superposition of the
+	 * entire register.
+	 * 
+	 * @param position
+	 *            position to read the qubit
+	 * @return value "1" or "0".
+	 */
 	public BigInteger measureQBitAtPosition(int position) {
 		return QMeasurement.measureQBit(this, position);
 	}
 
+	/**
+	 * Measure the register.
+	 * 
+	 * @return value in decimal for the content of the register.
+	 */
 	public BigInteger measure() {
 		return QMeasurement.measure(this);
 	}
