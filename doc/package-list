@@ -1,7 +1,1 @@
-libQ
-libQ.algorithms.examples
-libQ.circuit
-libQ.exceptions
-libQ.gates
 libQ.register
-libQ.register.utils

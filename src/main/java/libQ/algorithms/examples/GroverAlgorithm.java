@@ -137,6 +137,8 @@ public class GroverAlgorithm {
 
 		N = 3; // Number to Search
 		width = 3; // 2^3 qubits
+		
+		System.out.println("Searching: " + N);
 
 		QReg reg = new QReg(BigInteger.ZERO, width);
 
