@@ -95,7 +95,7 @@ public class GroverAlgorithm {
 		IGate sig;
 		for (i = 0; i < reg.getWidth(); i++) {
 			int result = (state & (1 << i));
-			if (result != 0) {
+			if (result == 0) {
 				sig = GateFactory.getInstance().getGate(EGateTypes.SIGMAXGATE);
 				sig.apply(reg, i); // if it is not 011 change to -x
 			}
@@ -122,7 +122,7 @@ public class GroverAlgorithm {
 
 		for (i = 0; i < reg.getWidth(); i++) {
 			int result = (state & (1 << i));
-			if (result != 0) {
+			if (result == 0) {
 				sig = GateFactory.getInstance().getGate(EGateTypes.SIGMAXGATE);
 				sig.apply(reg, i); // if it is not 011 change to -x
 			}
@@ -136,7 +136,7 @@ public class GroverAlgorithm {
 		System.out.println("Starting...");
 
 		N = 3; // Number to Search
-		width = 3; // 2^3 qubits
+		width = 4; // 2^3 qubits
 		
 		System.out.println("Searching: " + N);
 
@@ -156,17 +156,23 @@ public class GroverAlgorithm {
 			System.out.println("Iteration: " + i);
 			grover(N, reg);
 		}
-
+	
 		final_measure(reg);
+		BigInteger result = reg.measure();
+		
+		System.out.println(reg);
+		System.out.println("Result measured: " + result);
+		
+	//	
 
-		for (i = 0; i < reg.getSize(); i++) {
+		/*for (i = 0; i < reg.getSize(); i++) {
 			// if(reg.state[i] == N)
 			BigInteger state = reg.getState().get(i);
 			double prob = QMeasurement.quantumProbabilityInline(reg.getAmplitude().get(i));
 
 			System.out.println("Found state: " + state + " with probability: " + prob);
 
-		}
+		}*/
 
 	}
 

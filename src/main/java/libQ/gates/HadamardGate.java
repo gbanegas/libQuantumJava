@@ -12,8 +12,8 @@ import libQ.register.utils.QMatrix;
 
 /**
  * 
- * Hadamard Gate:
- * The gate put the register in a quantum superposition.
+ * Hadamard Gate: The gate put the register in a quantum superposition.
+ * 
  * @author Gustavo Banegas
  *
  */
@@ -37,7 +37,12 @@ class HadamardGate implements IGate {
 		while (threadHash.isAlive()) {
 			;
 		}
-
+		try {
+			threadHash.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		reg.setHash(threadHash.getList());
 		QMatrix matrix = new QMatrix(2, 2);
 		matrix.getT()[0] = new Complex(Math.sqrt(1.0 / 2));
