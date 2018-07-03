@@ -32,12 +32,14 @@ public class QReg {
 		// BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
 		hash = new ArrayList<>();
 
-		// threadHash.start();
+		if (width < 17) {
+			BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
 
-		/*
-		 * for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i =
-		 * i.add(BigInteger.ONE)) { hash.add(i); }
-		 */
+			for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i = i.add(BigInteger.ONE)) {
+				hash.add(i);
+			}
+
+		}
 
 		this.amplitude = new ArrayList<>();
 		this.state = new ArrayList<>();
@@ -62,8 +64,15 @@ public class QReg {
 		this.width = width;
 		this.size = 1;
 		this.hashw = width + 2;
-		// BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
 		hash = new ArrayList<>();
+		if (width < 17) {
+			BigInteger tmp = BigInteger.ONE.shiftLeft(hashw);
+
+			for (BigInteger i = BigInteger.ZERO; i.compareTo(tmp) != 0; i = i.add(BigInteger.ONE)) {
+				hash.add(i);
+			}
+
+		}
 
 		// threadHash.start();
 

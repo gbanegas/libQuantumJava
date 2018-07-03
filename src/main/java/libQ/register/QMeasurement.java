@@ -90,9 +90,14 @@ public class QMeasurement {
 				}
 				lpat = lpat.and(reg.getState().get(i));
 
-				lpat = BigInteger.ONE.shiftRight(lpat.intValue());
-				lpat = lpat.or(rpat);
-				n_state.add(j, lpat);
+				BigInteger tmp = BigInteger.ZERO;
+				if(lpat.intValue() > 0)
+					tmp = BigInteger.ONE.shiftRight(lpat.intValue());// (lpat >> 1;
+				tmp = tmp.or(rpat);
+				//lpat = BigInteger.ONE.shiftRight(lpat.intValue());
+				//lpat = lpat.or(rpat);
+				
+				n_state.add(j, tmp);
 
 				// out.state[j] = (lpat >> 1) | rpat;
 				Complex result = reg.getAmplitude().get(i).multiply(Complex.ONE);
