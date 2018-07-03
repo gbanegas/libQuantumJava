@@ -17,7 +17,7 @@ import libQ.register.QReg;
 
 public class CircuitDraw extends Canvas {
 
-	private static final int X_DISTANCE = 35;
+	private static final int X_DISTANCE = 45;
 
 	private static final int Y_DISTANCE = 15;
 
@@ -40,17 +40,20 @@ public class CircuitDraw extends Canvas {
 		// draw a line (starting x,y; ending x,y)
 		this.setBackground(Color.WHITE);
 		int l = Y_DISTANCE;
+		int regSize = reg.getWidth() - 1;
 		for (int i = 0; i < reg.getSize(); i++) {
 			for (int j = reg.getWidth() - 1; j >= 0; j--) {
 				Boolean myBoolean = (((BigInteger.ONE.shiftLeft(j)).and(initial_reg.get(i)))
 						.compareTo(BigInteger.ZERO) > 0);
 				Integer result = (myBoolean) ? 1 : 0;
-				g.drawString(Integer.toString(result), 10, l);
+				g.drawString(Integer.toString(regSize) + " | ", 0, l);
+				g.drawString(Integer.toString(result), 30, l);
 				myBoolean = (((BigInteger.ONE.shiftLeft(j)).and(reg.getState().get(i))).compareTo(BigInteger.ZERO) > 0);
 				result = (myBoolean) ? 1 : 0;
 				g.drawString(Integer.toString(result), 510, l);
 				g.drawLine(X_DISTANCE, l - 5, 500, l - 5);
 				l = l + Y_DISTANCE;
+				regSize--;
 
 				// System.out.print(result);
 			}
@@ -96,7 +99,7 @@ public class CircuitDraw extends Canvas {
 	private void drawSwapGate(Graphics g, int posX, int posY_control1, int posY_target) {
 		int radiusFilledDot = 2;
 		Graphics2D g2d = (Graphics2D) g;
-		
+
 		Shape filleDot1 = new Ellipse2D.Double(posX - radiusFilledDot, posY_control1 - radiusFilledDot,
 				2.0 * radiusFilledDot, 2.0 * radiusFilledDot);
 		Shape filleDot2 = new Ellipse2D.Double(posX - radiusFilledDot, posY_target - radiusFilledDot,
