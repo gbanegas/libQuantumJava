@@ -8,7 +8,6 @@ import libQ.exceptions.SizeHandleException;
 import libQ.gates.EGateTypes;
 import libQ.gates.GateFactory;
 import libQ.gates.IGate;
-import libQ.register.QMeasurement;
 import libQ.register.QReg;
 
 /**

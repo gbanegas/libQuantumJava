@@ -68,7 +68,7 @@ public class QuantumCircuit {
 
 	public void drawCircuit() {
 		CircuitDrawer drawer = new CircuitDrawer();
-		drawer.paintReg(reg);
+		drawer.paintReg(reg, history);
 
 	}
 
