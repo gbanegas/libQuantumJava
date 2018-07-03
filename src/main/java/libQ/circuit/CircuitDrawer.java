@@ -1,9 +1,13 @@
 package libQ.circuit;
 
+import java.awt.Component;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import libQ.register.QReg;
@@ -17,13 +21,35 @@ public class CircuitDrawer extends JFrame {
 
 	public void paintReg(List<BigInteger> initial_reg, QReg reg, HashMap<TimeStampQuantum, QuantumOperation> history) {
 		CircuitDraw m = new CircuitDraw(initial_reg, reg, history);
-		JFrame f = new JFrame("Twilight Zone");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(290, 325);
-		f.setLocation(550, 25);
-		f.setVisible(true);
-		f.add(m);
+		JFrame frame = new JFrame("");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(290, 325);
+		
+		frame.setLocation(550, 25);
+		frame.setVisible(true);
+		frame.add(m);
 
+		try {
+			getSaveSnapShot(frame, "temp");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private BufferedImage getScreenShot(Component component) {
+
+		BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(),
+				BufferedImage.TYPE_INT_RGB);
+		// paints into image's Graphics
+		component.paintAll((image.getGraphics()));
+		return image;
+	}
+
+	private void getSaveSnapShot(Component component, String fileName) throws Exception {
+		BufferedImage img = getScreenShot(component);
+		// write the captured image as a PNG
+		ImageIO.write(img, "png", new File(fileName));
 	}
 
 }

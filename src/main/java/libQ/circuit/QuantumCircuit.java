@@ -52,6 +52,8 @@ public class QuantumCircuit {
 		}
 
 	}
+	
+	
 
 	public void addToffoliGate(int controlQBit, int controlQBit2, int targetQBit) {
 		h = GateFactory.getInstance().getGate(EGateTypes.TOFFOLIGATE);

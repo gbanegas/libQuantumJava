@@ -16,8 +16,9 @@ public class Main {
 		QuantumCircuit circ = new QuantumCircuit(reg);
 
 		System.out.println(reg);
-		circ.addCNotGate(0, 1);
-		circ.addToffoliGate(0, 1, 3);
+		circ.addSwapGate(0, 1);
+	//	circ.addToffoliGate(0, 1, 3);
+	//	circ.addCNotGate(2, 3);
 		System.out.println(circ.getReg());
 		circ.drawCircuit();
 		/*

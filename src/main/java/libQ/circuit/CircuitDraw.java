@@ -1,6 +1,7 @@
 package libQ.circuit;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -37,6 +38,7 @@ public class CircuitDraw extends Canvas {
 
 	public void paint(Graphics g) {
 		// draw a line (starting x,y; ending x,y)
+		this.setBackground(Color.WHITE);
 		int l = Y_DISTANCE;
 		for (int i = 0; i < reg.getSize(); i++) {
 			for (int j = reg.getWidth() - 1; j >= 0; j--) {
@@ -76,11 +78,39 @@ public class CircuitDraw extends Canvas {
 				drawToffoliGate(g, posX, posY_control1, posY_control2, posY_target);
 				posX = posX + X_DISTANCE;
 				break;
+
+			case SWAPGATE:
+				posY_control1 = getPosOfBit(reg.getWidth(), operation.getControl1());
+				posY_target = getPosOfBit(reg.getWidth(), operation.getTarget());
+				drawSwapGate(g, posX, posY_control1, posY_target);
+				posX = posX + X_DISTANCE;
+
 			default:
 				break;
 			}
 
 		}
+
+	}
+
+	private void drawSwapGate(Graphics g, int posX, int posY_control1, int posY_target) {
+		int radiusFilledDot = 2;
+		Graphics2D g2d = (Graphics2D) g;
+		
+		Shape filleDot1 = new Ellipse2D.Double(posX - radiusFilledDot, posY_control1 - radiusFilledDot,
+				2.0 * radiusFilledDot, 2.0 * radiusFilledDot);
+		Shape filleDot2 = new Ellipse2D.Double(posX - radiusFilledDot, posY_target - radiusFilledDot,
+				2.0 * radiusFilledDot, 2.0 * radiusFilledDot);
+
+		g2d.fill(filleDot1);
+		g2d.fill(filleDot2);
+		g.drawLine(posX, posY_control1 + 2, posX, posY_target - 2);
+
+		g.drawLine(posX - 4, posY_control1 - 4, posX + 4, posY_control1 + 4);
+		g.drawLine(posX + 4, posY_control1 - 4, posX - 4, posY_control1 + 4);
+
+		g.drawLine(posX - 4, posY_target - 4, posX + 4, posY_target + 4);
+		g.drawLine(posX + 4, posY_target - 4, posX - 4, posY_target + 4);
 
 	}
 
