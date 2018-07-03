@@ -13,6 +13,7 @@ public class QuantumOperation {
 		this.operationType = operationType;
 		this.control1 = control1;
 		this.target = target;
+		this.control2 = 0;
 	}
 
 	public QuantumOperation(EGateTypes operationType, int control1, int control2, int target) {
@@ -80,6 +81,19 @@ public class QuantumOperation {
 	 */
 	public void setControl2(int control2) {
 		this.control2 = control2;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append("Operation: " + this.operationType);
+		strBuilder.append("\nControlBit1 : " + this.control1);
+		if (control2 > 0)
+			strBuilder.append("\nControlBit2: " + this.control2);
+
+		strBuilder.append("\ntarget : " + this.target);
+
+		return strBuilder.toString();
 	}
 
 }

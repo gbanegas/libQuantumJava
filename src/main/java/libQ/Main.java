@@ -17,18 +17,17 @@ public class Main {
 
 		System.out.println(reg);
 		circ.addCNotGate(0, 1);
+		circ.addToffoliGate(0, 1, 3);
 		System.out.println(circ.getReg());
 		circ.drawCircuit();
-		/*IGate h = GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
-		h.apply(reg, 0);
-		System.out.println(reg);
-		h = GateFactory.getInstance().getGate(EGateTypes.SIGMAXGATE);
-		h.apply(reg, 0);
-		System.out.println(reg);
-		// reg.setWidth(reg.getWidth() + 1);
-		BigInteger re = QMeasurement.measureQBit(reg, 0);
-		System.out.println("measured: " + re);
-		System.out.println(reg);*/
+		/*
+		 * IGate h = GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
+		 * h.apply(reg, 0); System.out.println(reg); h =
+		 * GateFactory.getInstance().getGate(EGateTypes.SIGMAXGATE); h.apply(reg, 0);
+		 * System.out.println(reg); // reg.setWidth(reg.getWidth() + 1); BigInteger re =
+		 * QMeasurement.measureQBit(reg, 0); System.out.println("measured: " + re);
+		 * System.out.println(reg);
+		 */
 		// reg.measure();
 		// h.apply(reg, 3);
 		/*
