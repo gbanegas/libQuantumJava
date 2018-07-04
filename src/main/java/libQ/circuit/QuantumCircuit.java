@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import libQ.circuit.draw.CircuitDrawer;
+import libQ.circuit.optimizer.CircuitOptmizer;
 import libQ.exceptions.OperationNotPermittedException;
 import libQ.gates.EGateTypes;
 import libQ.gates.GateFactory;
@@ -52,8 +54,6 @@ public class QuantumCircuit {
 		}
 
 	}
-	
-	
 
 	public void addToffoliGate(int controlQBit, int controlQBit2, int targetQBit) {
 		h = GateFactory.getInstance().getGate(EGateTypes.TOFFOLIGATE);
@@ -87,12 +87,32 @@ public class QuantumCircuit {
 
 	}
 
+	public void optimize() {
+		CircuitOptmizer optimizer = new CircuitOptmizer(this);
+		optimizer.start();
+	}
+
 	public QReg getReg() {
 		return reg;
 	}
 
 	private void setReg(QReg reg) {
 		this.reg = reg;
+	}
+
+	/**
+	 * @return the history
+	 */
+	public HashMap<TimeStampQuantum, QuantumOperation> getHistory() {
+		return history;
+	}
+
+	/**
+	 * @param history
+	 *            the history to set
+	 */
+	public void setHistory(HashMap<TimeStampQuantum, QuantumOperation> history) {
+		this.history = history;
 	}
 
 }

@@ -1,4 +1,4 @@
-package libQ.circuit;
+package libQ.circuit.draw;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import libQ.circuit.QuantumOperation;
+import libQ.circuit.TimeStampQuantum;
 import libQ.register.QReg;
 
 public class CircuitDraw extends Canvas {
@@ -87,7 +89,9 @@ public class CircuitDraw extends Canvas {
 				posY_target = getPosOfBit(reg.getWidth(), operation.getTarget());
 				drawSwapGate(g, posX, posY_control1, posY_target);
 				posX = posX + X_DISTANCE;
-
+				break;
+		
+				
 			default:
 				break;
 			}

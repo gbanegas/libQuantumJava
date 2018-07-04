@@ -12,15 +12,17 @@ public class Main {
 
 	public static void main(String[] args)
 			throws OperationNotPermittedException, UnexpectedException, SizeHandleException {
-		QReg reg = new QReg(new BigInteger("1"), 4);
+		QReg reg = new QReg(new BigInteger("3"), 5);
 		QuantumCircuit circ = new QuantumCircuit(reg);
 
 		System.out.println(reg);
-		circ.addSwapGate(0, 1);
-	//	circ.addToffoliGate(0, 1, 3);
-	//	circ.addCNotGate(2, 3);
+		circ.addCNotGate(1, 3);
+		//circ.addToffoliGate(0, 1, 3);
+		circ.addCNotGate(2, 3);
+		circ.addCNotGate(0, 4);
 		System.out.println(circ.getReg());
-		circ.drawCircuit();
+		circ.optimize();
+		//circ.drawCircuit();
 		/*
 		 * IGate h = GateFactory.getInstance().getGate(EGateTypes.HADAMARDGATE);
 		 * h.apply(reg, 0); System.out.println(reg); h =

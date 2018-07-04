@@ -1,4 +1,4 @@
-package libQ.circuit;
+package libQ.circuit.draw;
 
 import java.awt.Component;
 import java.awt.image.BufferedImage;
@@ -10,6 +10,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import libQ.circuit.QuantumOperation;
+import libQ.circuit.TimeStampQuantum;
 import libQ.register.QReg;
 
 public class CircuitDrawer extends JFrame {
@@ -28,13 +30,13 @@ public class CircuitDrawer extends JFrame {
 		frame.setLocation(550, 25);
 		frame.setVisible(true);
 		frame.add(m);
-
+/*
 		try {
 			getSaveSnapShot(frame, "temp");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	private BufferedImage getScreenShot(Component component) {
@@ -46,7 +48,7 @@ public class CircuitDrawer extends JFrame {
 		return image;
 	}
 
-	private void getSaveSnapShot(Component component, String fileName) throws Exception {
+	public void getSaveSnapShot(Component component, String fileName) throws Exception {
 		BufferedImage img = getScreenShot(component);
 		// write the captured image as a PNG
 		ImageIO.write(img, "png", new File(fileName));
