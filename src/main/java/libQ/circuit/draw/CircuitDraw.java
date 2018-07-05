@@ -1,6 +1,5 @@
 package libQ.circuit.draw;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,11 +12,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import libQ.circuit.QuantumOperation;
 import libQ.circuit.TimeStampQuantum;
 import libQ.register.QReg;
 
-public class CircuitDraw extends Canvas {
+public class CircuitDraw extends JPanel {
 
 	private static final int X_DISTANCE = 45;
 
@@ -68,6 +70,7 @@ public class CircuitDraw extends Canvas {
 			int posY_control1 = 0;
 			int posY_target = 0;
 			int posY_control2 = 0;
+			
 			switch (operation.getOperationType()) {
 			case CNOTGATE:
 				posY_control1 = getPosOfBit(reg.getWidth(), operation.getControl1());
@@ -90,8 +93,7 @@ public class CircuitDraw extends Canvas {
 				drawSwapGate(g, posX, posY_control1, posY_target);
 				posX = posX + X_DISTANCE;
 				break;
-		
-				
+
 			default:
 				break;
 			}
@@ -142,6 +144,7 @@ public class CircuitDraw extends Canvas {
 		g2d.fill(filleDot2);
 		g.drawLine(posX, posY_control1, posX, posY_target - 6);
 		g.drawLine(posX, posY_control2, posX, posY_target - 6);
+		g.drawLine(posX - radiusHoledDot+5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot+5, posY_target + radiusHoledDot);
 
 	}
 
@@ -161,6 +164,7 @@ public class CircuitDraw extends Canvas {
 		g2d.draw(holedDot);
 		g2d.fill(filleDot);
 		g.drawLine(posX, posY_control1, posX, posY_target - 6);
+		g.drawLine(posX - radiusHoledDot+5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot+5, posY_target + radiusHoledDot);
 
 	}
 
