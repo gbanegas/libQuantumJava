@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import libQ.circuit.QuantumOperation;
 import libQ.circuit.TimeStampQuantum;
