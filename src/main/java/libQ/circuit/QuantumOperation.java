@@ -1,8 +1,12 @@
 package libQ.circuit;
 
+import java.util.UUID;
+
 import libQ.gates.EGateTypes;
 
 public class QuantumOperation {
+
+	private String uniqueID;
 
 	private EGateTypes operationType;
 	private int target;
@@ -14,6 +18,7 @@ public class QuantumOperation {
 		this.control1 = control1;
 		this.target = target;
 		this.control2 = 0;
+		uniqueID = UUID.randomUUID().toString();
 	}
 
 	public QuantumOperation(EGateTypes operationType, int control1, int control2, int target) {
@@ -21,6 +26,7 @@ public class QuantumOperation {
 		this.control1 = control1;
 		this.control2 = control2;
 		this.target = target;
+		uniqueID = UUID.randomUUID().toString();
 	}
 
 	/**
@@ -94,6 +100,10 @@ public class QuantumOperation {
 		strBuilder.append("\ntarget : " + this.target);
 
 		return strBuilder.toString();
+	}
+
+	public String getUniqueID() {
+		return uniqueID;
 	}
 
 }
