@@ -22,21 +22,21 @@ public class CircuitDrawer {
 
 	public void paintReg(List<BigInteger> initial_reg, QReg reg, HashMap<TimeStampQuantum, QuantumOperation> history) {
 		CircuitDraw m = new CircuitDraw(initial_reg, reg, history);
-		
+
 		JFrame frame = new JFrame("");
 		frame.add(m);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setSize(290, 325);
-		//frame.setLocation(550, 25);
+		// frame.setSize(290, 325);
+		// frame.setLocation(550, 25);
 		frame.pack();
 		frame.setVisible(true);
-		
 
 		// frame.setContentPane(pane);
-		/*
-		 * try { getSaveSnapShot(frame, "temp"); } catch (Exception e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
+		try {
+			getSaveSnapShot(frame, "temp");
+		} catch (Exception e) { // TODOAuto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private BufferedImage getScreenShot(Component component) {

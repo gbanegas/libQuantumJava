@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args)
 			throws OperationNotPermittedException, UnexpectedException, SizeHandleException {
-		QReg reg = new QReg(new BigInteger("3"), 32);
+		QReg reg = new QReg(new BigInteger("3"), 16);
 		QuantumCircuit circ = new QuantumCircuit(reg);
 
 		System.out.println(reg);
@@ -22,13 +22,27 @@ public class Main {
 		
 		circ.addToffoliGate(4, 5, 2);
 		// circ.addToffoliGate(0, 1, 3);
-		/*circ.addCNotGate(2, 3);
 		circ.addCNotGate(3, 5);
 		circ.addCNotGate(6, 5);
 		circ.addCNotGate(7, 8);
 		circ.addSwapGate(5, 9);
 		circ.addToffoliGate(1, 2, 3);
-		circ.addCNotGate(0, 4);*/
+		circ.addCNotGate(0, 4);
+		circ.addCNotGate(2, 3);
+		circ.addCNotGate(1, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		circ.addToffoliGate(4, 5, 2);
+		
 		System.out.println(circ.getReg());
 		circ.drawCircuit();
 		/*

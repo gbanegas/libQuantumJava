@@ -41,8 +41,11 @@ public class CircuitDraw extends JPanel {
 
 	public void paint(Graphics g) {
 		// draw a line (starting x,y; ending x,y)
+		List<TimeStampQuantum> listOperations = new ArrayList<TimeStampQuantum>(history.keySet());
+		Collections.sort(listOperations);
 		this.setBackground(Color.WHITE);
 		int l = Y_DISTANCE;
+		int margin = X_DISTANCE * listOperations.size() + X_DISTANCE;
 		int regSize = reg.getWidth() - 1;
 		for (int i = 0; i < reg.getSize(); i++) {
 			for (int j = reg.getWidth() - 1; j >= 0; j--) {
@@ -53,23 +56,22 @@ public class CircuitDraw extends JPanel {
 				g.drawString(Integer.toString(result), 30, l);
 				myBoolean = (((BigInteger.ONE.shiftLeft(j)).and(reg.getState().get(i))).compareTo(BigInteger.ZERO) > 0);
 				result = (myBoolean) ? 1 : 0;
-				g.drawString(Integer.toString(result), 510, l);
-				g.drawLine(X_DISTANCE, l - 5, 500, l - 5);
+				g.drawString(Integer.toString(result), margin + 10, l);
+				g.drawLine(X_DISTANCE, l - 5, margin, l - 5);
 				l = l + Y_DISTANCE;
 				regSize--;
 
 				// System.out.print(result);
 			}
 		}
-		List<TimeStampQuantum> listOperations = new ArrayList<TimeStampQuantum>(history.keySet());
-		Collections.sort(listOperations);
+
 		int posX = X_DISTANCE + Y_DISTANCE;
 		for (int i = 0; i < listOperations.size(); i++) {
 			QuantumOperation operation = history.get(listOperations.get(i));
 			int posY_control1 = 0;
 			int posY_target = 0;
 			int posY_control2 = 0;
-			
+
 			switch (operation.getOperationType()) {
 			case CNOTGATE:
 				posY_control1 = getPosOfBit(reg.getWidth(), operation.getControl1());
@@ -143,7 +145,8 @@ public class CircuitDraw extends JPanel {
 		g2d.fill(filleDot2);
 		g.drawLine(posX, posY_control1, posX, posY_target - 6);
 		g.drawLine(posX, posY_control2, posX, posY_target - 6);
-		g.drawLine(posX - radiusHoledDot+5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot+5, posY_target + radiusHoledDot);
+		g.drawLine(posX - radiusHoledDot + 5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot + 5,
+				posY_target + radiusHoledDot);
 
 	}
 
@@ -163,7 +166,8 @@ public class CircuitDraw extends JPanel {
 		g2d.draw(holedDot);
 		g2d.fill(filleDot);
 		g.drawLine(posX, posY_control1, posX, posY_target - 6);
-		g.drawLine(posX - radiusHoledDot+5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot+5, posY_target + radiusHoledDot);
+		g.drawLine(posX - radiusHoledDot + 5, posY_target - radiusHoledDot - 1, posX - radiusHoledDot + 5,
+				posY_target + radiusHoledDot);
 
 	}
 
